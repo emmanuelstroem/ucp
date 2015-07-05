@@ -1,0 +1,58 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : Jun 20, 2015, 1:56:12 PM
+    Author     : onekalit
+*/
+
+
+html{
+      font-family: sans-serif;
+     -webkit-text-size-adjust: 100%;
+         -ms-text-size-adjust: 100%;
+         background-color: azure;
+}
+
+
+
+
+body {
+    background-color: #d0e4fe;
+    margin: 0 auto;
+    position: relative;
+    width: 500px;
+    margin: 10px auto;
+    padding: 15px;
+    height:550px;
+    border: 8px solid green;
+}
+h1 {
+    color: green;
+    text-align: center;
+}
+
+p {
+    font-family: "Times New Roman";
+    font-size: 20px;
+}
+.div1{
+    columns: initial;
+    
+    
+}
+
+.uci_logo{
+    margin-left: 0px;
+    
+}
+
+.ihsu_logo{
+    margin-left: 120px;
+}
+
+.timedate{
+    alignment-adjust: middle;
+}
