@@ -1,11 +1,15 @@
-<%-- 
+ <%-- 
     Document   : results
     Created on : Jun 24, 2015, 5:34:15 PM
     Author     : ken
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
-<%@ page import ="java.sql.*" %>
+
+<%@ include file="../Reception/include/common.jsp" %>
+<%@ include file="../Reception/include/database.jsp" %>
+<%@page import=" java.util.Enumeration;" %>
+<%@page import=" java.util.*" %>
 <!doctype html>
 <html lang="en"><head>
     <meta charset="utf-8">
@@ -25,6 +29,22 @@
 
     <link rel="stylesheet" type="text/css" href="stylesheets/theme.css">
     <link rel="stylesheet" type="text/css" href="stylesheets/premium.css">
+    <script type="text/javascript">
+function del()
+{
+if(confirm("Do You Want to Delete this Patient?"))
+{
+}
+else
+{
+return false;
+}
+}
+</script>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+<title></title>
+<link rel="stylesheet" href="images/style.css" type="text/css" charset="utf-8" />
+
 
 </head>
 <body class=" theme-blue">
@@ -106,14 +126,8 @@
                 </a>
 
               <ul class="dropdown-menu">
-                <li><a href="./">My Account</a></li>
                 <li class="divider"></li>
-                <li class="dropdown-header">Admin Panel</li>
-                <li><a href="./">Users</a></li>
-                <li><a href="./">Security</a></li>
-                <li><a tabindex="-1" href="./">Payments</a></li>
-                <li class="divider"></li>
-                <li><a tabindex="-1" href="sign-in.html">Logout</a></li>
+                <li><a tabindex="-1" href="../logout.jsp">Logout</a></li>
               </ul>
             </li>
           </ul>
@@ -149,71 +163,86 @@
         </div>
         <div class="main-content">
             
-<div class="btn-toolbar list-toolbar">
-    <button class="btn btn-primary"><i class="fa fa-plus"></i> New User</button>
-    <button class="btn btn-default">Import</button>
-    <button class="btn btn-default">Export</button>
+            
+<div class="btn-toolbar list-toolbar divalign" >
+    <button  class="btn btn-primary" ><i class="fa fa-plus"></i> Showing Search Result</button>
+    
+    
+    
   <div class="btn-group">
   </div>
 </div>
+            <% 
+PatientID1=request.getParameter("PatientID");
+firstName=request.getParameter("fname");
+lname=request.getParameter("lname");
+if(PatientID1!=null)
+PatientID=Integer.parseInt(PatientID1);
+delete_patient=request.getParameter("delete_patient");
+
+if("yes".equals(delete_patient))
+{
+firstname=request.getParameter("firstName");
+x=stmt1.executeUpdate("Delete from patient where PatientID="+PatientID+"'");
+}
+%>
          <table class="table">   
             <%  
-            String fname = request.getParameter("fname");    
-            String lname = request.getParameter("lname"); 
-            Class.forName("com.mysql.jdbc.Driver");
-            Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/cancer","root", "");
-
-            Statement statement = connection.createStatement();
-
-            ResultSet resultset = statement.executeQuery("select * from patient where firstName like '"+fname+"%' and lname like '"+lname+"%'");
+           
+           // ResultSet resultset = stmt.executeQuery("select * from patient where first_Name like '"+firstName+"%' and last_name like '"+lname+"%'");
 %>
 
-<form action="loadpatient.jsp" method="post">
-       <table class="table">
+<% if(x==1)
+	{
+	%>
+        
+        <%}%>
+<table class="table">
       <thead>
       <tr>
-      <th>#</th>
+      <th>patienID</th>
       <th>First Name</th>
       <th>Last Name</th>
       <th>Sex</th>
+       <th>Birth Place</th>
       <th style="width: 3.5em;"></th>
     </tr>
   </thead>
   <tbody>
-  <%
-            while(resultset.next()){ 
-        %>
-            <tr>
-      <td><%= resultset.getString(1) %></td>
-      <td><%= resultset.getString(2) %></td>
-      <td><%= resultset.getString(3) %></td>
-      <td><%= resultset.getString(4) %></td>
-      <td>
-          <%
-               
-                %>
-                
-                <input type="hidden" name="patientid" value="<%=resultset.getString(1)%>"></input>
-                       
-                       
-                <input type="submit" value="see details">    
-                <a href="loadpatient.jsp">    <i class="fa fa-pencil"></a></i>
-          <a href="#myModal" role="button" data-toggle="modal"><i class="fa fa-trash-o"></i></a>
-      </td>
-            </tr>
-            
-
-<!--****************************************************************************************************************** -->
-
-<% 
-            } 
-        %>
-        
-  
+  <% int icount=0;
+    rs=stmt.executeQuery("select * from patient where fname like '"+firstName+"%' and lname like '"+lname+"%'");
     
-  </tbody>
-</table>
-</form>
+
+while(rs.next())
+{       PatientID=rs.getInt("patientID");
+        firstName=rs.getString("fname");
+        lname=rs.getString("lname");
+        sex=rs.getString("sex");
+         BirthPlace=rs.getString("BirthPlace");
+         
+          session.setAttribute("PatientID",PatientID);
+         session.setAttribute("firstName", firstName);
+         session.setAttribute("lname", lname);
+         session.setAttribute("sex", sex);
+         session.setAttribute("BirthPlace", BirthPlace);
+         String fname= (String)session.getAttribute(firstName);
+ %>
+            <tr>
+              
+       <td><%=PatientID%></td>
+      <td><%= firstName %></td>
+      <td><%= lname %></td>
+      <td><%= sex %></td>
+       <td><%=BirthPlace%></td>
+       
+       <td><div align="center"><a href="view_patient.jsp?PatientID=<%=PatientID%>"><i class="fa fa-folder-open"></i>Load Details</a></div></td>
+              <td><div align="center"><a href="view_patient.jsp?delete_patient=yes&PatientID=<%=PatientID%>" onclick="return del()"><i class="fa fa-trash-o"></i>
+</a></div></td>
+            </tr>
+<% }  %>	
+</tbody>
+        </table>
+  
 
 <ul class="pagination">
   <li><a href="#">&laquo;</a></li>

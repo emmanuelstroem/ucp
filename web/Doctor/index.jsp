@@ -115,8 +115,6 @@
                 </a>
 
               <ul class="dropdown-menu">
-                <li><a href="user.html">Account Settings</a></li>
-                <li class="divider"></li>
                 <li><a tabindex="-1" href="../logout.jsp">Logout</a></li>
               </ul>
             </li>
@@ -131,13 +129,11 @@
     <ul>
     <li><a href="index.jsp" data-target=".dashboard-menu" class="nav-header"><i class="fa fa-fw fa-dashboard"></i> Make a Request</a></li>    
     <li ><a href="searchPatient.jsp" class="nav-header"><span class="fa fa-search"></span> Search Patient</a></li>
-    <li ><a href="registerPatient.html" class="nav-header"><span class="fa fa-pencil"></span> Register Patient</a></li>
+    <li ><a href="registerPatient.jsp" class="nav-header"><span class="fa fa-pencil"></span> Register Patient</a></li>
     <li ><a href="loadpatient.jsp" class="nav-header"><span class="fa fa-stethoscope"></span> Consultation </a></li>
     <li ><a href="treatment.html" class="nav-header"><span class="fa fa-medkit"></span> Treatmement</a></li>
-        <li ><a href="calendar.html" class="nav-header"><span class="fa fa-clock-o"></span> Appointments</a></li>
-    <li><a href="remove" class="nav-header"><i class="fa fa-fw fa-question-circle"></i> Delete Patient</a></li>
+    <li ><a href="../Appointments.jsp" class="nav-header"><span class="fa fa-clock-o"></span> Appointments</a></li>
     
-
     </div>
 
     <div class="content">

@@ -165,7 +165,7 @@
 
             Statement statement = connection.createStatement();
 
-            ResultSet resultset = statement.executeQuery("SELECT patient.patientID,patient.fname, patient.lname, patient.DOB, triage.weight, triage.height, triage.pulse, triage.bp FROM triage  INNER JOIN patient ON triage.patientID=patient.patientID;");
+            ResultSet resultset = statement.executeQuery("SELECT patient.patientID,patient.firstName, patient.lname, patient.DOB, triage.weight, triage.height, triage.pulse, triage.bp FROM triage  INNER JOIN patient ON triage.patientID=patient.patientID;");
 %>
 
 
