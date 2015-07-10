@@ -547,6 +547,14 @@ a.panel-heading:hover,
   background-color: #aaaa55;
   *background-color: #aaaa55;
 }
+.btn-save{
+    color: greenyellow;
+    background-color: #ccffcc;
+  background-image: -webkit-gradient(linear, 0 0, 0 100%, from(green), to(green));
+  border: 1px solid #363d4a;
+  font-weight: normal;
+}
+
 .well {
   background-color: #fff;
   border: 1px solid #ccc;
@@ -707,7 +715,7 @@ a.panel-heading:hover,
   background-clip: padding-box;
 }
 .modal.small .modal-dialog {
-  width: 370px;
+  width: 600px;
 }
 .modal.small .modal-dialog .modal-body {
   padding: 1em;

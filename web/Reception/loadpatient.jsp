@@ -140,12 +140,7 @@ x=stmt1.executeUpdate("Delete from patient where PatientID="+PatientID);
               <ul class="dropdown-menu">
                 <li><a href="./">My Account</a></li>
                 <li class="divider"></li>
-                <li class="dropdown-header">Admin Panel</li>
-                <li><a href="./">Users</a></li>
-                <li><a href="./">Security</a></li>
-                <li><a tabindex="-1" href="./">Payments</a></li>
-                <li class="divider"></li>
-                <li><a tabindex="-1" href="sign-in.html">Logout</a></li>
+                <li><a tabindex="-1" href="../logout.jsp">Logout</a></li>
               </ul>
             </li>
           </ul>
@@ -208,7 +203,7 @@ x=stmt1.executeUpdate("Delete from patient where PatientID="+PatientID);
   <tbody>
   <%
             while(resultset.next()){ 
-                PatientID=resultset.getInt("patientID");
+               
         %>
             <tr>
       <td><%= resultset.getString(1) %></td>

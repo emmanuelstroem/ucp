@@ -10,6 +10,11 @@
 <%@ include file="../Reception/include/database.jsp" %>
 <%@page import=" java.util.Enumeration;" %>
 <%@page import=" java.util.*" %>
+
+<%
+    String username = (String)session.getAttribute("User_Name");
+    String department = (String)session.getAttribute("Department");
+%>
 <!doctype html>
 <html lang="en">
     <head><meta charset="utf-8">
@@ -146,7 +151,7 @@ $('#formbox').slideUp('fast');
           <ul id="main-menu" class="nav navbar-nav navbar-right">
             <li class="dropdown hidden-xs">
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                    <span class="glyphicon glyphicon-user padding-right-small" style="position:relative;top: 3px;"></span> Jack Smith
+                    <span class="glyphicon glyphicon-user padding-right-small" style="position:relative;top: 3px;"></span> <b><%=username%></b> (<%=department%>)
                     <i class="fa fa-caret-down"></i>
                 </a>
 
@@ -166,9 +171,8 @@ $('#formbox').slideUp('fast');
     <ul>
     <li><a href="../Doctor/index.jsp" data-target=".dashboard-menu" class="nav-header"><i class="fa fa-fw fa-dashboard"></i> Dashboard</a></li>    
     <li ><a href="index.jsp" class="nav-header"><span class="fa fa-search"></span> Search Patient</a></li>
-    <li ><a href="registerPatient.html" class="nav-header"><span class="fa fa-pencil"></span> Register Patient</a></li>
     <li ><a href="triage.html" class="nav-header"><span class="fa fa-stethoscope"></span> Triage</a></li>
-    <li ><a href="treatment.html" class="nav-header"><span class="fa fa-medkit"></span> Treatmement</a></li>
+    <li ><a href="treatment.html" class="nav-header"><span class="fa fa-medkit"></span> Treatment</a></li>
         <li ><a href="calendar.html" class="nav-header"><span class="fa fa-clock-o"></span> Appointments</a></li>
     <li><a href="help.html" class="nav-header"><i class="fa fa-fw fa-question-circle"></i> Help</a></li>
     
@@ -197,7 +201,7 @@ $('#formbox').slideUp('fast');
             <% 
             
 PatientID1=request.getParameter("PatientID");
-firstName=request.getParameter("fname");
+fname=request.getParameter("fname");
 lname=request.getParameter("lname");
 if(PatientID1!=null)
 PatientID=Integer.parseInt(PatientID1);
@@ -205,14 +209,14 @@ delete_patient=request.getParameter("delete_patient");
 
 if("yes".equals(delete_patient))
 {
-firstname=request.getParameter("firstName");
+fname=request.getParameter("fname");
 x=stmt1.executeUpdate("Delete from patient where PatientID="+PatientID+"'");
 }
 %>
            
             <%  
            
-           // ResultSet resultset = stmt.executeQuery("select * from patient where firstName like '"+firstName+"%' and lname like '"+lname+"%'");
+           // ResultSet resultset = stmt.executeQuery("select * from patient where fname like '"+fname+"%' and lname like '"+lname+"%'");
 %>
 
 <% if(x==1)
@@ -221,20 +225,20 @@ x=stmt1.executeUpdate("Delete from patient where PatientID="+PatientID+"'");
         
         <%}%>
 <table class="table">
-                     <thead>
-                     <tr>
-                     <th>PatientID </th>
-                     <th>First Name</th>
-                     <th>Last Name</th>
-                     <th>Birth Place</th>
-                      <th>Sex</th>
-                      <th> Temp(C) </th>
-                      <th> WEIGHT(KG) </th>
-                      <th> HEIGHT </th>
-                      <th> BP </th>
-                      <th> PULSE </th>
-                      <th> RECORD DATE </th>
-                      <th colspan="4"><button value=<b><font color="green"> SELECT ACTION BELOW  </font>   </b> </button></th>
+     <thead>
+     <tr>
+     <th>Patient ID </th>
+     <th>First Name</th>
+     <th>Last Name</th>
+     <th>Birth Place</th>
+     <th>Sex</th>
+     <th> Temp(C) </th>
+     <th> WEIGHT(KG) </th>
+     <th> HEIGHT </th>
+     <th> BP </th>
+     <th> PULSE </th>
+     <th> RECORD DATE </th>
+     <th colspan="4"><button value=<b><font color="green"> SELECT ACTION BELOW  </font>   </b> </button></th>
 
        
       <th style="width: 3.5em;"></th>
@@ -242,18 +246,18 @@ x=stmt1.executeUpdate("Delete from patient where PatientID="+PatientID+"'");
   </thead>
   <tbody>   
         <% int icount=0;
-               rs=stmt.executeQuery("select * from triage where patientID='"+PatientID+"';");
+               rs=stmt.executeQuery("select * from triage INNER JOIN patient ON triage.patientID=patient.patientID AND triage.patientID='"+PatientID+"';");
                
-               
+             
 while(rs.next())
 { %>   <%
                triageid=rs.getInt("triageid");
-                temperature=rs.getInt("temperature");
+               temperature=rs.getInt("temperature");
                weight=rs.getInt("weight");
                height=rs.getInt("height");
                bp=rs.getString("bp");
                pulse=rs.getInt("pulse");
-              date1=rs.getTimestamp("date");
+               date1=rs.getTimestamp("date");
                session.setAttribute("triageidtriageid",triageid);
                session.setAttribute(" temperature", temperature);
                session.setAttribute(" weight", weight);
@@ -261,14 +265,14 @@ while(rs.next())
                session.setAttribute("bp",bp);
                session.setAttribute("pulse", pulse);
                session.setAttribute("date1",date1);
-               
+               int PatientID1=(Integer)session.getAttribute("PatientID");
 %>
 
-              <td><%=PatientID%></td>
-              <td><%=(String)session.getAttribute("firstName")%></td>
+              <td><%=PatientID1%></td>
+              <td><%=(String)session.getAttribute("fname")%></td>
               <td><%=(String)session.getAttribute("lname")%></td>
-              <td><%=(String) session.getAttribute("BirthPlace")%></td>
-              <td><%= (String)session.getAttribute("sex")%></td>
+              <td><%=(String)session.getAttribute("BirthPlace")%></td>
+              <td><%=(String)session.getAttribute("sex")%></td>
               
               <td><%=temperature%></td>
               <td><%=weight%></td>
@@ -278,72 +282,130 @@ while(rs.next())
               <td><%=date1%></td>
               
              
-             <td><div align="center">  <button type="button"   class="btn btn-info brand" data-toggle="modal" data-target="#prescription"> Prescribe</button> </div></td>
-             <td><div align="center">  <button type="button"   class="btn btn-info btn-success" data-toggle="modal" data-target="#screening"> screening</button> </div></td>
+             <td><div align="center">  <button type="button"   class="btn btn-info brand" data-toggle="modal" data-target="#prescribe"> Prescribe</button> </div></td>
+             <td><div align="center">  <button type="button"   class="btn btn-info btn-success" data-toggle="modal" data-target="#screen"> screening</button> </div></td>
              <td><a href="health_record.jsp"><div align="center">  <button type="button"   class="btn btn-info btn-warning" data-toggle="modal" data-target="#healthrecord"> History</button> </div> </a></td>
 
 
-</tr>
+    </tr>
 <% }  %>	
-</tbody>
-        </table>
+    </tbody>
+</table>
   
 
-<ul class="pagination">
-  <li><a href="#">&laquo;</a></li>
-  <li><a href="#">1</a></li>
-  <li><a href="#">2</a></li>
-  <li><a href="#">3</a></li>
-  <li><a href="#">4</a></li>
-  <li><a href="#">5</a></li>
-  <li><a href="#">&raquo;</a></li>
-</ul>
 
 <!------------------------------------------------------------------------------------------------------------------------------------- -->
 
-
-<div class="modal fade" id="prescription" role="dialog">
-    <div class="modal-dialog">
-    
-      <!-- Modal content*************************************************************-->
-      <div class="modal-content">
-        <div class="modal-header">
-          <button type="button" class="close" data-dismiss="modal">&times;</button>
-          <h4 class="alert-danger" align="center">Prescription Form</h4>
+<div class="modal small fade" id="prescribe" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+        <h4 class="alert" align="center">Prescription Form</h4>
+        
+        <div class="modal-body">
+            <div id="myTabContent" class="tab-content">
+        <div class="tab-pane active in" id="home">
+            <form action="doprescription.jsp" method="post" name="prescription" >
+                <h3>Patient ID: <b><%=PatientID1%></b></h3>
+                <h3>Name: <b><%= session.getAttribute("fname")%> <%= session.getAttribute("lname")%></b></h3>
+            <input type="hidden" name="PatientID" value="<%=PatientID1%>" >
+        <div class="form-group">
+            <label>Drug:</label><input type="text" name="drug" class="form-control">
         </div>
-          <div class="arrow" ></div>
+        <div class="form-group">
+            <label>Dosage: </label><input type="text" name="dosage" class="form-control">
             
-          <div class="badge" >
-              <br><br><br><br>
-            <form action="doprescription.jsp" method="post" class="alert-success">
-                <br><br><br>
-                <h3>patient number:<%=PatientID %></h3>
-                <h3>Name:<%= session.getAttribute("firstName")%> <%= session.getAttribute("lname")%></h3>
-                <hr>
-            <input type="hidden" name="PatientID" value="<%= PatientID%>" >
-           <input type="hidden" name="staffid" value="<%= staffid%>" >
-           Drug:<input type="text" name="Drug" >
-           prescription:<input type="text" name="prescription"  ><br>
-           Duration:<input type="text" name="Duration"  >
-           Date for checkup:<input type="date" name="checkup" placeholder="yyyy-mm-dd"   >
-                  
-         
-                    <div class="modal-footer">
-                        <div> <input type="submit" value="SAVE" class="btn btn-default" ></div> <br>
-                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-          
         </div>
-           </form>          
+        <div class="form-group">
+            <label>Duration(days): </label><input type="text" name="duration" class="form-control">
+            
+        </div>
+        <div class="form-group">
+            <label>Return Date: </label> <input type="date" name="checkup" class="form-control">
+        </div>
+         
+          <div class="btn-toolbar list-toolbar">
+      
+      <a href="#myModal" data-dismiss="modal" class="btn btn-danger">Cancel</a>
+      <button type="submit" class="btn btn-save"><i class="fa fa-save"></i> Save</button>
+    </div>
+        </form>
       </div>
-     
+
+      <div class="tab-pane fade" id="profile">
+
+  </div>
+</div>
         </div>
         
+      </div>
     </div>
-              
-  </div>
-            
+</div>
+        
+        
+        
+        
+        
+        
+<div class="modal small fade" id="screen" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+        <h4 class="alert" align="center">Screening Request</h4>
+        
+        <div class="modal-body">
+            <div id="myTabContent" class="tab-content">
+        <div class="tab-pane active in" id="home">
+            <form action="doscreeningrequest.jsp" method="post" name="screening" >
+                <h3>Patient ID: <b><%=PatientID%></b></h3>
+                <h3>Name: <b><%= session.getAttribute("fname")%> <%= session.getAttribute("lname")%></b></h3>
+            <input type="hidden" name="PatientID" value="<%=PatientID1%>" >
+        <div class="form-group">
+            <label>Cancer:</label>
+            <select name="cancername">
+        <%  
+            rs4=stmt.executeQuery("select * from cancer");
+            session.setAttribute("cancerid", "cancer");
            
+            while(rs4.next()){ %>
+            <option name="cancerid" value="9"><%= rs4.getString(4)%> <b><%= rs4.getString(2)%></b></option>
+        <% } %>
+        </select>
         </div>
+        
+        <div class="form-group">
+            <label>Allergy: </label><input type="text" name="allergy" class="form-control">
+            
+        </div>
+        
+        <label>HIV Status:</label>
+         <div class="radio">
+             <label><input type="radio" name="hiv" value="Negative">Negative</label>
+        </div>
+        <div class="radio">
+            <label><input type="radio" name="hiv" value="Positive">Positive</label>
+        </div>
+        <div class="radio">
+            <label><input type="radio" name="hiv" value="Don't Know">Don't Know</label>
+        </div>
+        <br />
+        
+          <div class="btn-toolbar list-toolbar">
+      
+      <a href="#myModal" data-dismiss="modal" class="btn btn-danger">Cancel</a>
+      <button type="submit" class="btn btn-save"><i class="fa fa-save"></i> Save</button>
+    </div>
+        </form>
+      </div>
+
+      <div class="tab-pane fade" id="profile">
+
+  </div>
+</div>
+        </div>
+        
+      </div>
+    </div>
+</div>        
+</div>
         
         
         <!-- screening ***************************************************** -->
@@ -368,7 +430,7 @@ while(rs.next())
               <h3 class="alert">  Select Cancer for Screening: </h3>
                   &nbsp; &nbsp; &nbsp;
                      <input type="checkbox" name="cancertype" value="L192" >  AFP &nbsp; &nbsp;
-                     <input type="checkbox" name="cancertype" value="X432" > βHCG quantitative    &nbsp; &nbsp;
+                     <input type="checkbox" name="cancertype" value="X432" > βHCG quantitative &nbsp; &nbsp;
                       <input type="checkbox" name="cancertype" value="C118" >  CEA    &nbsp; &nbsp;
                       <input type="checkbox" name="cancertype" value="K193" > CA 153-Breast       &nbsp; &nbsp;
                        <input type="checkbox" name="cancertype" value="S443" > CA 724     &nbsp; &nbsp;
@@ -381,7 +443,7 @@ while(rs.next())
                       <input type="checkbox" name="cancertype" value="N288" > B2 microglobin  &nbsp; &nbsp;
                       <input type="checkbox" name="cancertype" value="D119" >CA 199   &nbsp; &nbsp; 
                       <hr>
-                      <p align="left">      Allergy  <input type="text" name="allergy"  ></p>
+                      <p align="left">  Allergy  <input type="text" name="allergy"  ></p>
                       <p align="left">  HIV status 
                <input type="radio" name="HIV_status" value="positive" >  positive
                <input type="radio" name="HIV_status" value="Negative" >  Negative

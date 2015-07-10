@@ -10,6 +10,10 @@
 <%@ include file="../Reception/include/database.jsp" %>
 <%@page import=" java.util.Enumeration;" %>
 <%@page import=" java.util.*" %>
+<%
+    String username = (String)session.getAttribute("User_Name");
+    String department = (String)session.getAttribute("Department");
+%>
 <!doctype html>
 <html lang="en"><head>
     <meta charset="utf-8">
@@ -121,7 +125,7 @@ return false;
           <ul id="main-menu" class="nav navbar-nav navbar-right">
             <li class="dropdown hidden-xs">
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                    <span class="glyphicon glyphicon-user padding-right-small" style="position:relative;top: 3px;"></span> Jack Smith
+                    <span class="glyphicon glyphicon-user padding-right-small" style="position:relative;top: 3px;"></span> <b><%=username%></b> (<%=department%>)
                     <i class="fa fa-caret-down"></i>
                 </a>
 
@@ -141,9 +145,8 @@ return false;
     <ul>
     <li><a href="../Doctor/index.jsp" data-target=".dashboard-menu" class="nav-header"><i class="fa fa-fw fa-dashboard"></i> Dashboard</a></li>    
     <li ><a href="index.jsp" class="nav-header"><span class="fa fa-search"></span> Search Patient</a></li>
-    <li ><a href="registerPatient.html" class="nav-header"><span class="fa fa-pencil"></span> Register Patient</a></li>
     <li ><a href="triage.html" class="nav-header"><span class="fa fa-stethoscope"></span> Triage</a></li>
-    <li ><a href="treatment.html" class="nav-header"><span class="fa fa-medkit"></span> Treatmement</a></li>
+    <li ><a href="treatment.html" class="nav-header"><span class="fa fa-medkit"></span> Treatment</a></li>
         <li ><a href="calendar.html" class="nav-header"><span class="fa fa-clock-o"></span> Appointments</a></li>
     <li><a href="help.html" class="nav-header"><i class="fa fa-fw fa-question-circle"></i> Help</a></li>
     
@@ -174,7 +177,7 @@ return false;
 </div>
             <% 
 PatientID1=request.getParameter("PatientID");
-firstName=request.getParameter("fname");
+fname=request.getParameter("fname");
 lname=request.getParameter("lname");
 if(PatientID1!=null)
 PatientID=Integer.parseInt(PatientID1);
@@ -182,7 +185,7 @@ delete_patient=request.getParameter("delete_patient");
 
 if("yes".equals(delete_patient))
 {
-firstname=request.getParameter("firstName");
+firstname=request.getParameter("fname");
 x=stmt1.executeUpdate("Delete from patient where PatientID="+PatientID+"'");
 }
 %>
@@ -200,7 +203,7 @@ x=stmt1.executeUpdate("Delete from patient where PatientID="+PatientID+"'");
 <table class="table">
       <thead>
       <tr>
-      <th>patienID</th>
+      <th>Patient ID</th>
       <th>First Name</th>
       <th>Last Name</th>
       <th>Sex</th>
@@ -210,27 +213,27 @@ x=stmt1.executeUpdate("Delete from patient where PatientID="+PatientID+"'");
   </thead>
   <tbody>
   <% int icount=0;
-    rs=stmt.executeQuery("select * from patient where fname like '"+firstName+"%' and lname like '"+lname+"%'");
+    rs=stmt.executeQuery("select * from patient where fname like '"+fname+"%' and lname like '"+lname+"%'");
     
 
 while(rs.next())
 {       PatientID=rs.getInt("patientID");
-        firstName=rs.getString("fname");
+        fname=rs.getString("fname");
         lname=rs.getString("lname");
         sex=rs.getString("sex");
-         BirthPlace=rs.getString("BirthPlace");
+        BirthPlace=rs.getString("BirthPlace");
          
-          session.setAttribute("PatientID",PatientID);
-         session.setAttribute("firstName", firstName);
+         session.setAttribute("PatientID",PatientID);
+         session.setAttribute("fname", fname);
          session.setAttribute("lname", lname);
          session.setAttribute("sex", sex);
          session.setAttribute("BirthPlace", BirthPlace);
-         String fname= (String)session.getAttribute(firstName);
+         String firstname= (String)session.getAttribute(fname);
  %>
             <tr>
               
        <td><%=PatientID%></td>
-      <td><%= firstName %></td>
+      <td><%= fname %></td>
       <td><%= lname %></td>
       <td><%= sex %></td>
        <td><%=BirthPlace%></td>
@@ -244,15 +247,7 @@ while(rs.next())
         </table>
   
 
-<ul class="pagination">
-  <li><a href="#">&laquo;</a></li>
-  <li><a href="#">1</a></li>
-  <li><a href="#">2</a></li>
-  <li><a href="#">3</a></li>
-  <li><a href="#">4</a></li>
-  <li><a href="#">5</a></li>
-  <li><a href="#">&raquo;</a></li>
-</ul>
+
 
 <div class="modal small fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
   <div class="modal-dialog">

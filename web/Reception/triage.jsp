@@ -151,7 +151,11 @@
     Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/cancer",  "root", "");
     Statement st = con.createStatement();
     ResultSet rs,rs1;
+    int pid=0;
+    String pid1;
     rs = st.executeQuery("select patientID,fname, lname from patient");
+    
+    
                 
                 %>
 
@@ -168,8 +172,10 @@
               <option value="-12.0">select patient</option>
               <%
                 while(rs.next()){
+                    
+                    pid=rs.getInt("patientID");
                     %>
-                <option value="-11.0"><%= rs.getString(1) %> <%= rs.getString(2) %>  <%= rs.getString(3) %></option>
+                <option  value="postrate" name="patient"><%= rs.getString(1) %> <%= rs.getString(2) %>  <%= rs.getString(3) %></option>
                 
          <%
                 }
@@ -179,25 +185,25 @@
                 </div>
                  
             <div class="form-group">
-            <label>Body Temperature </label>
+            <label>Body Temperature (c) </label>
             <input type="number" name="temperature" class="form-control">
             </div>
                 
                 
               
-           
-                <input type="HIDDEN" name="patientID" value=" 2" class="form-control">
-            </div>
+                <div>
+                    <input type="HIDDEN" name="patientID" value="<%=pid%>" class="form-control">
+                </div>
                 
                 
                 
                 
             <div class="form-group">
-            <label>Weight</label>
+            <label>Weight (kgs)</label>
             <input type="text" name="weight" class="form-control">
             </div>
             <div class="form-group">
-            <label>Height</label>
+            <label>Height (cms)</label>
             <input type="text" name="height" class="form-control">
             </div>
             <div class="form-group">

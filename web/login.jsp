@@ -17,11 +17,12 @@
     String username = request.getParameter("username");    
     String password = request.getParameter("password"); 
     String Department= request.getParameter("Department");
+    String staffid= request.getParameter("staffid");
     String DptPharmacy = Department;
     Class.forName("com.mysql.jdbc.Driver");
     Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/cancer",  "root", "");
     Statement st = con.createStatement();
-    ResultSet rs,rs1;
+    ResultSet rs,rs1,rs3;
     rs = st.executeQuery("select * from staffs where User_Name='" + username + "' and pass_Word='" + password + "'");
    
     session.setAttribute("User_Name", username);
@@ -33,7 +34,9 @@
     }else{
         rs1 = st.executeQuery("select User_Name, Department from staffs where User_Name='" + username + "' and Department='" + Department + "'");
         if (rs1.next()) {
-        
+            
+            rs3 = st.executeQuery("select staffid from staffs where User_Name='" + username + "' and Department='" + Department + "'");
+            session.setAttribute("staffid", staffid);
             
            session.setAttribute("Department", Department);
         //session.setAttribute("Departmet", Department);
@@ -43,9 +46,13 @@
     // if ( ((String)pageContext.findAttribute("Department")).equals("Pharmacy") ){
         
         //response.sendRedirect("test.jsp");
-        
-        
+           
+           
+           
+           
+           
         if(DptPharmacy==Department){
+            
             response.sendRedirect(Department);
             
         }else{

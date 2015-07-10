@@ -10,6 +10,10 @@
 <%@ include file="../Reception/include/database.jsp" %>
 <%@page import=" java.util.Enumeration;" %>
 <%@page import=" java.util.*" %>
+<%
+    String username = (String)session.getAttribute("User_Name");
+    String department = (String)session.getAttribute("Department");
+%>
 <!doctype html>
 <html lang="en">
     <head><meta charset="utf-8">
@@ -145,7 +149,7 @@ $('#formbox').slideUp('fast');
           <ul id="main-menu" class="nav navbar-nav navbar-right">
             <li class="dropdown hidden-xs">
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                    <span class="glyphicon glyphicon-user padding-right-small" style="position:relative;top: 3px;"></span> Jack Smith
+                    <span class="glyphicon glyphicon-user padding-right-small" style="position:relative;top: 3px;"></span> <b><%=username%></b> (<%=department%>)
                     <i class="fa fa-caret-down"></i>
                 </a>
 
@@ -164,9 +168,8 @@ $('#formbox').slideUp('fast');
     <ul>
     <li><a href="../Doctor/index.jsp" data-target=".dashboard-menu" class="nav-header"><i class="fa fa-fw fa-dashboard"></i> Dashboard</a></li>    
     <li ><a href="index.jsp" class="nav-header"><span class="fa fa-search"></span> Search Patient</a></li>
-    <li ><a href="registerPatient.html" class="nav-header"><span class="fa fa-pencil"></span> Register Patient</a></li>
     <li ><a href="triage.html" class="nav-header"><span class="fa fa-stethoscope"></span> Triage</a></li>
-    <li ><a href="treatment.html" class="nav-header"><span class="fa fa-medkit"></span> Treatmement</a></li>
+    <li ><a href="treatment.html" class="nav-header"><span class="fa fa-medkit"></span> Treatment</a></li>
         <li ><a href="calendar.html" class="nav-header"><span class="fa fa-clock-o"></span> Appointments</a></li>
     <li><a href="help.html" class="nav-header"><i class="fa fa-fw fa-question-circle"></i> Help</a></li>
     
@@ -190,10 +193,25 @@ $('#formbox').slideUp('fast');
      <% String can="";
         staffid="3y";
          PatientID=(Integer)session.getAttribute("PatientID");
-        String  othertest =request.getParameter("othertest");
-          String  allergy =request.getParameter("allergy");
-           String  HIV_status =request.getParameter("HIV_status");
-         String cancerid[]  =request.getParameterValues("cancertype");
+           
+         
+         String cancerid[]  =request.getParameterValues("cancername");
+         
+         String cancername=request.getParameter("cancername");
+         String  allergy =request.getParameter("allergy");
+         String hiv =request.getParameter("hiv");
+         String dropdown=request.getParameter("cancername");
+         
+         String cancername1 = (String)session.getAttribute("cancername");
+        
+         
+         if(dropdown!=null){
+         
+             stmt.executeUpdate("insert into screensrequest(PatientID, cancerid, staffid, allergy, hiv) values ('"+PatientID+"','"+cancerid+"','"+staffid+"','"+allergy+"','"+hiv+"')");
+       
+         
+         }
+         
  if(request.getParameter("cancertype") != null){
         String[] cancer;
        cancer = request.getParameterValues("cancertype");
@@ -205,7 +223,7 @@ $('#formbox').slideUp('fast');
           
         // staffid=request.getParameter("staffid");
          
-       x= stmt.executeUpdate("insert into screensrequest(PatientID,othertest,cancertype,staffid,allergy,HIV_status) values ('"+PatientID+"','"+othertest+"','"+can+"','"+staffid+"','"+allergy+"','"+HIV_status+"')");
+       x= stmt.executeUpdate("insert into screensrequest(PatientID, cancerid, staffid, allergy, hiv) values ('"+PatientID+"','"+cancerid+"','"+staffid+"','"+allergy+"','"+hiv+"')");
        
        %>
        

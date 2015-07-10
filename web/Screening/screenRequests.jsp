@@ -202,7 +202,7 @@ x=stmt1.executeUpdate("Delete from patient where PatientID="+PatientID);
       <th>Screening ID</th>
       <th>Patient ID</th>
       <th>Patient Name</th>
-      <th>Cancer Screen</th>
+      <th>Screen For</th>
       <th>Action</th>
       <th style="width: 3.5em;"></th>
     </tr>
@@ -210,7 +210,7 @@ x=stmt1.executeUpdate("Delete from patient where PatientID="+PatientID);
   <tbody>
   <%
             while(resultset.next()){ 
-                String caname=resultset.getString("screeningid");
+                String caname=resultset.getString("requestid");
                 String patientid=resultset.getString("PatientID");
                 String screenid=resultset.getString("cancername");
                 String firstname=resultset.getString("fname");

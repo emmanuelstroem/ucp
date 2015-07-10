@@ -5,6 +5,13 @@
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@page import="java.util.Enumeration"%>
+<%@page import="java.util.*" %>
+<%
+    String username = (String)session.getAttribute("User_Name");
+    String department = (String)session.getAttribute("Department");
+%>
+
 <!doctype html>
 <html lang="en"><head>
     <meta charset="utf-8">
@@ -110,7 +117,7 @@
           <ul id="main-menu" class="nav navbar-nav navbar-right">
             <li class="dropdown hidden-xs">
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                    <span class="glyphicon glyphicon-user padding-right-small" style="position:relative;top: 3px;"></span><b>Doctor</b>
+                    <span class="glyphicon glyphicon-user padding-right-small" style="position:relative;top: 3px;"></span><b><%=username%> </b>(<%=department%>)
                     <i class="fa fa-caret-down"></i>
                 </a>
 
@@ -127,11 +134,10 @@
 
     <div class="sidebar-nav">
     <ul>
-    <li><a href="index.jsp" data-target=".dashboard-menu" class="nav-header"><i class="fa fa-fw fa-dashboard"></i> Make a Request</a></li>    
+    <li><a href="index.jsp" data-target=".dashboard-menu" class="nav-header"><i class="fa fa-fw fa-dashboard"></i> Dashboard</a></li>    
     <li ><a href="searchPatient.jsp" class="nav-header"><span class="fa fa-search"></span> Search Patient</a></li>
-    <li ><a href="registerPatient.jsp" class="nav-header"><span class="fa fa-pencil"></span> Register Patient</a></li>
     <li ><a href="loadpatient.jsp" class="nav-header"><span class="fa fa-stethoscope"></span> Consultation </a></li>
-    <li ><a href="treatment.html" class="nav-header"><span class="fa fa-medkit"></span> Treatmement</a></li>
+    <li ><a href="treatment.html" class="nav-header"><span class="fa fa-medkit"></span> Treatment</a></li>
     <li ><a href="../Appointments.jsp" class="nav-header"><span class="fa fa-clock-o"></span> Appointments</a></li>
     
     </div>

@@ -38,7 +38,7 @@
 
             Statement statement = connection.createStatement();
 
-            statement.executeUpdate("insert into screensresult(result, intensity) values('"+result+"','"+intensity+"')");
+            statement.executeUpdate("insert into screens_result(histology, behavior) values('"+result+"','"+intensity+"')");
 
 con.close();
 session.setAttribute("update_patient","patient ("+fname+") updated successfully");

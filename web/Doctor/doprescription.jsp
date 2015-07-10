@@ -10,6 +10,10 @@
 <%@ include file="../Reception/include/database.jsp" %>
 <%@page import=" java.util.Enumeration;" %>
 <%@page import=" java.util.*" %>
+<%
+    String username = (String)session.getAttribute("User_Name");
+    String department = (String)session.getAttribute("Department");
+%>
 <!doctype html>
 <html lang="en">
     <head><meta charset="utf-8">
@@ -145,7 +149,7 @@ $('#formbox').slideUp('fast');
           <ul id="main-menu" class="nav navbar-nav navbar-right">
             <li class="dropdown hidden-xs">
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                    <span class="glyphicon glyphicon-user padding-right-small" style="position:relative;top: 3px;"></span> Jack Smith
+                    <span class="glyphicon glyphicon-user padding-right-small" style="position:relative;top: 3px;"></span> <b><%=username%></b> (<%=department%>)
                     <i class="fa fa-caret-down"></i>
                 </a>
 
@@ -164,9 +168,8 @@ $('#formbox').slideUp('fast');
     <ul>
     <li><a href="../Doctor/index.jsp" data-target=".dashboard-menu" class="nav-header"><i class="fa fa-fw fa-dashboard"></i> Dashboard</a></li>    
     <li ><a href="index.jsp" class="nav-header"><span class="fa fa-search"></span> Search Patient</a></li>
-    <li ><a href="registerPatient.html" class="nav-header"><span class="fa fa-pencil"></span> Register Patient</a></li>
     <li ><a href="triage.html" class="nav-header"><span class="fa fa-stethoscope"></span> Triage</a></li>
-    <li ><a href="treatment.html" class="nav-header"><span class="fa fa-medkit"></span> Treatmement</a></li>
+    <li ><a href="treatment.html" class="nav-header"><span class="fa fa-medkit"></span> Treatment</a></li>
         <li ><a href="calendar.html" class="nav-header"><span class="fa fa-clock-o"></span> Appointments</a></li>
     <li><a href="help.html" class="nav-header"><i class="fa fa-fw fa-question-circle"></i> Help</a></li>
     
@@ -190,29 +193,30 @@ $('#formbox').slideUp('fast');
      <% 
        //  String cancerid[]  =request.getParameterValues("cancertype");
          
-         String   Drug =request.getParameter(" Drug");
+         String   drug =request.getParameter("drug");
            
-         String  prescription =request.getParameter("prescription");
+         String  dosage =request.getParameter("dosage");
            
-         String  Duration =request.getParameter("Duration");
+         String  duration =request.getParameter("duration");
            
          String  date =request.getParameter("checkup");
         // staffid=request.getParameter("staffid");
-          staffid="3y";
-         PatientID=(Integer)session.getAttribute("PatientID");
+          staffid="3";
+         int PatientID1=(Integer)session.getAttribute("PatientID");
  
-       x= stmt.executeUpdate("insert into prescription(PatientID,Drug,prescription,Duration, checkup) values ('"+PatientID+"','"+Drug+"','"+prescription +"','"+Duration+"','"+date+"')");
+       x= stmt.executeUpdate("insert into prescription(PatientID, drug, prescription, duration, checkup) values ('"+PatientID1+"','"+drug+"','"+dosage+"','"+duration+"','"+date+"')");
         
        %>
        
        <% if(x!=0){     
            %>
-         <div class="btn-success  divalign" align="center">
-    
-     <button  class="btn btn-primary" ><i class="fa fa-plus"></i>Prescription Saved</button>
-    <div class="btn-group">
-  </div>
-</div>
+           
+           
+    <div class="alert alert-success fade in">
+    <a href="#" class="close" data-dismiss="alert">&times;</a>
+    <strong>Success!</strong> Prescription Saved!!
+    </div>
+         
            
            <%     
          }
