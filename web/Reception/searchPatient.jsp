@@ -11,6 +11,7 @@
 <%
     String username = (String)session.getAttribute("User_Name");
     String department = (String)session.getAttribute("Department");
+    int staffid = (Integer)session.getAttribute("staffid");
 %>
 <!doctype html>
 <html lang="en"><head>

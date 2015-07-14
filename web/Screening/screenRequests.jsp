@@ -6,8 +6,17 @@
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@ page import ="java.sql.*" %>
-<%@ include file="include/common.jsp" %>
-<%@ include file="include/database.jsp" %>
+<%@ include file="../Reception/include/common.jsp" %>
+<%@ include file="../Reception/include/database.jsp" %>
+<%@page import=" java.util.Enumeration;" %>
+<%@page import=" java.util.*" %>
+
+<%
+    String username = (String)session.getAttribute("User_Name");
+    String department = (String)session.getAttribute("Department");
+    int staffid = (Integer)session.getAttribute("staffid");
+%>
+
 <!doctype html>
 <html lang="en"><head>
     <meta charset="utf-8">
@@ -40,7 +49,7 @@ return false;
 }
 }
 
-
+        
 </script>
 
 
@@ -136,7 +145,7 @@ x=stmt1.executeUpdate("Delete from patient where PatientID="+PatientID);
           <ul id="main-menu" class="nav navbar-nav navbar-right">
             <li class="dropdown hidden-xs">
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                    <span class="glyphicon glyphicon-user padding-right-small" style="position:relative;top: 3px;"></span> Jack Smith
+                    <span class="glyphicon glyphicon-user padding-right-small" style="position:relative;top: 3px;"></span> <b><%=username%></b> (<%=department%>)
                     <i class="fa fa-caret-down"></i>
                 </a>
 
@@ -181,21 +190,6 @@ x=stmt1.executeUpdate("Delete from patient where PatientID="+PatientID);
         <div class="main-content">
             
 
-         <table class="table">   
-             
-             
-
-            <%  
-            String fname = request.getParameter("fname");    
-            String lname = request.getParameter("lname"); 
-            stmt = con.createStatement();
-
-            ResultSet resultset = stmt.executeQuery("select screensrequest.*, cancer.*, patient.* from screensrequest JOIN cancer ON screensrequest.cancerid=cancer.cancerid JOIN patient ON screensrequest.PatientID=patient.PatientID");
-
-            
-            %>
-
-
 <table class="table">
   <thead>
     <tr>
@@ -203,117 +197,95 @@ x=stmt1.executeUpdate("Delete from patient where PatientID="+PatientID);
       <th>Patient ID</th>
       <th>Patient Name</th>
       <th>Screen For</th>
+      <th>Requested By</th>
       <th>Action</th>
       <th style="width: 3.5em;"></th>
     </tr>
   </thead>
   <tbody>
-  <%
-            while(resultset.next()){ 
-                String caname=resultset.getString("requestid");
-                String patientid=resultset.getString("PatientID");
-                String screenid=resultset.getString("cancername");
-                String firstname=resultset.getString("fname");
-                String lastname=resultset.getString("lname");
-
+      
+      
+      
+   <% int count1=0;
+   
+           rs=stmt.executeQuery("select screensrequest.*, cancer.*, patient.*, staffs.* from screensrequest JOIN cancer ON screensrequest.cancerid=cancer.cancerid JOIN patient ON screensrequest.PatientID=patient.PatientID JOIN staffs ON screensrequest.staffid=staffs.staffid;");
+              
+           
+               
+    while(rs.next()){ 
+        
+               requestid=rs.getInt("requestid");
+               PatientID=rs.getInt("screensrequest.PatientID");
+               cancerid=rs.getInt("cancerid");
+               fname=rs.getString("fname");
+               lname=rs.getString("lname");
+               cancername=rs.getString("cancername");
+               firstname=rs.getString("first_Name");
+               lastname=rs.getString("last_name");
+              // lname=rs.getString("lname");
+               session.setAttribute("requestid", requestid);
+               session.setAttribute("screensrequest.PatientID", PatientID);
+               session.setAttribute("cancerid", cancerid);
+               session.setAttribute("lname", lname);
+               session.setAttribute("cancername", cancername);
+               session.setAttribute("first_Name", firstname);
+               session.setAttribute("last_name", lastname);
+               
         %>
-            <tr>
-      <td><%= caname%></td>
-      <td><%= patientid%></td>
-      <td><%= firstname %>  <%= lastname %></td>
-      <td><%= screenid %></td>
-      <td>
-          <a href="editPaitent.jsp?PatientID=<%=PatientID%>"><i class="fa fa-pencil"></i></a>
-          <a href="#myModal" role="button" data-toggle="modal"><i class="fa fa-trash-o"></i></a>
-      </td>
-            </tr>
+        <tr>
+        <td> <%=requestid  %></td>
+        <td><%= PatientID%></td>
+        <td><%= fname%>  <%= lname %></td>
+        <td><%= cancername%></td>
+        <td><%= firstname%> <%=lastname%></td>
+        <td>
+            <div align="center"><a href="view_patient.jsp?PatientID=<%=PatientID%>"><i class="fa fa-pencil"></i></a></div>
+        </td>
+              </tr>
+            <%
+              }  
+            %>
             
-
 <!--****************************************************************************************************************** -->
 
-<% 
-            } 
-        %>
-        
   
     
   </tbody>
 </table>
 
         
-<div class="modal small fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+<div class="modal small fade" id="screenresult" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
   <div class="modal-dialog">
-    <div class="modal-content">
+   <div class="modal-content">
+        <h4 class="alert" align="center">Screening Results Form</h4>
         
         <div class="modal-body">
             <div id="myTabContent" class="tab-content">
         <div class="tab-pane active in" id="home">
-            <form action="screenResult.jsp" method="post" name="result" >
+            <form action="screenResult.jsp" method="post" name="screening" >
+                <h3>Patient ID: <b><%=requestid%></b></h3>
+                <h3>Name: <b><%=fname%> <%=lname %></b></h3>
+                <input type="text" name="PatientID" value="<%=PatientID%>">
+            <input type="hidden" name="staffid" value="<%=staffid%>" >
         <div class="form-group">
-            <label>First Name:</label>
-            <textarea type="text" name="fname" rows="5" class="form-control" ></textarea>
-        </div>
-        <div class="form-group">
-            <label>Last Name</label>
-            <input type="text" name="lname" class="form-control">
-        </div>
-        <div class="form-group">
-            <label>Other name</label>
-            <input type="text" name="othername" class="form-control">
+            <label>Drug:</label><input type="text" name="drug" class="form-control">
         </div>
         <div class="form-group">
-            <label>Email</label>
-            <input type="email" name="email" class="form-control">
+            <label>Dosage: </label><input type="text" name="dosage" class="form-control">
+            
         </div>
-        <div class="form-group">            
-            <label>Birth Place:</label>
-            <input type="text" name="birthplace" class="form-control">
+        <div class="form-group">
+            <label>Duration(days): </label><input type="text" name="duration" class="form-control">
+            
         </div>
-        <div>
-            <label>Date Of Bith:</label>
-            <input type="date" name="DOB" class="form-control">
+        <div class="form-group">
+            <label>Return Date: </label> <input type="date" name="checkup" class="form-control">
         </div>
-        <div>
-            <label>Occupation:</label>
-            <input type="text" name="occupation" class="form-control">
-        </div>
-        <div>
-            <label>Tribe:</label>
-            <input type="text" name="tribe" class="form-control">
-        </div>
-          <div>
-            <label>District:</label>
-            <input type="text" name="district" class="form-control">
-        </div>
-        <div>
-            <label>Region:</label>
-            <input type="text" name="region" class="form-control">
-        </div>
-        <div>
-            <label>Contact:</label>
-            <input type="text" name="contact" class="form-control">
-        </div>
-        <div>
-            <label>village:</label>
-            <input type="text" name="village" class="form-control">
-        </div>
-        <div>
-            <label>County:</label>
-            <input type="text" name="county" class="form-control">
-        </div>
-        <div>
-            <label>Subcounty:</label>
-            <input type="text" name="subcounty" class="form-control">
-        </div>
-        <div>
-            <label>parish:</label>
-            <input type="text" name="parish" class="form-control">
-        </div> <br />
-        
-          
+         
           <div class="btn-toolbar list-toolbar">
-      <button type="submit" class="btn btn-primary"><i class="fa fa-save"></i> Save</button>
-      <a href="#myModal" data-toggle="modal" class="btn btn-danger">Cancel</a>
+      
+      <a href="#myModal" data-dismiss="modal" class="btn btn-danger">Cancel</a>
+      <button type="submit" class="btn btn-save"><i class="fa fa-save"></i> Save</button>
     </div>
         </form>
       </div>
@@ -325,7 +297,7 @@ x=stmt1.executeUpdate("Delete from patient where PatientID="+PatientID);
         </div>
         
       </div>
-    </div>
+   </div>
 </div>
 
 

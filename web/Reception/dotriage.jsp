@@ -6,7 +6,12 @@
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
-<!doctype html>
+<%
+    String username = (String)session.getAttribute("User_Name");
+    String department = (String)session.getAttribute("Department");
+    int staffid = (Integer)session.getAttribute("staffid");
+%>
+
 <html lang="en"><head>
     <meta charset="utf-8">
     <title>UCI: Triage</title>
@@ -101,7 +106,7 @@
           <ul id="main-menu" class="nav navbar-nav navbar-right">
             <li class="dropdown hidden-xs">
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                    <span class="glyphicon glyphicon-user padding-right-small" style="position:relative;top: 3px;"></span> Jack Smith
+                    <span class="glyphicon glyphicon-user padding-right-small" style="position:relative;top: 3px;"></span> <b><%=username%></b> (<%=department%>)
                     <i class="fa fa-caret-down"></i>
                 </a>
 
@@ -142,7 +147,7 @@
         <div class="main-content">
             <%@page import="java.sql.*" %>
             <%
-                String patientid = request.getParameter("patientID");
+                String patientid = request.getParameter("PatientID");
                 String temperature = request.getParameter("temperature");
                 String weight = request.getParameter("weight");
                 String height = request.getParameter("height");
@@ -155,13 +160,18 @@
     Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/cancer",  "root", "");
     Statement st = con.createStatement();
 
-    int i = st.executeUpdate("insert  into triage(patientID, temperature, weight, height, bp, pulse) values('"+patientid+"', '"+temperature+"', '"+weight+"', '"+height+"', '"+bp+"', '"+pulse+"')");
+    int i = st.executeUpdate("insert  into triage(patientID, temperature, weight, height, bp, pulse, staffid) values('"+patientid+"', '"+temperature+"', '"+weight+"', '"+height+"', '"+bp+"', '"+pulse+"', '"+staffid+"')");
     
     if(i > 0){
         %>
         <div class="alert alert-success fade in">
          <a href="#" class="close" data-dismiss="alert">&times;</a>
         <strong>Success!</strong> Patient triage recorded successfully.
+        
+        </div>
+        
+        <div>
+            <a href="editPaitent.jsp?PatientID=<%=patientid%>"><button>Back to Patient Profile</button></a>
         </div>
         <%
     } 

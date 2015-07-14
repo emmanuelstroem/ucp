@@ -13,6 +13,7 @@
 <%
     String username = (String)session.getAttribute("User_Name");
     String department = (String)session.getAttribute("Department");
+    int staffid = (Integer)session.getAttribute("staffid");
 %>
 <!doctype html>
 <html lang="en">
@@ -190,51 +191,37 @@ $('#formbox').slideUp('fast');
     
 
 <div class="pagination">
-     <% String can="";
-        staffid="3y";
-         PatientID=(Integer)session.getAttribute("PatientID");
-           
-         
-         String cancerid[]  =request.getParameterValues("cancername");
-         
-         String cancername=request.getParameter("cancername");
+     <% 
+         patientid=request.getParameter("PatientID");
+         PatientID=Integer.parseInt(patientid);
+         String cancerid=request.getParameter("cancerid");
          String  allergy =request.getParameter("allergy");
          String hiv =request.getParameter("hiv");
-         String dropdown=request.getParameter("cancername");
+         cid=Integer.parseInt(cancerid);
          
-         String cancername1 = (String)session.getAttribute("cancername");
-        
+         if(cid>0){
          
-         if(dropdown!=null){
-         
-             stmt.executeUpdate("insert into screensrequest(PatientID, cancerid, staffid, allergy, hiv) values ('"+PatientID+"','"+cancerid+"','"+staffid+"','"+allergy+"','"+hiv+"')");
+             x=stmt.executeUpdate("insert into screensrequest(PatientID, cancerid, staffid, allergy, hiv) values ('"+PatientID+"','"+cancerid+"','"+staffid+"','"+allergy+"','"+hiv+"')");
        
          
-         }
+         }else{
          
- if(request.getParameter("cancertype") != null){
-        String[] cancer;
-       cancer = request.getParameterValues("cancertype");
-        for(int i = 0; i < cancer.length; i++)
-            {
-        can= cancer[i];
-        }
+         out.print("There was an ERR sending screening Request, Please Try Again!");
          }
-          
-        // staffid=request.getParameter("staffid");
-         
-       x= stmt.executeUpdate("insert into screensrequest(PatientID, cancerid, staffid, allergy, hiv) values ('"+PatientID+"','"+cancerid+"','"+staffid+"','"+allergy+"','"+hiv+"')");
-       
+    
        %>
        
        <% if(x!=0){     
            %>
-         <div class="btn-success  divalign" align="center">
-    
-     <button  class="btn btn-primary" ><i class="fa fa-plus"></i>Request Sent</button>
-    <div class="btn-group">
-  </div>
-</div>
+            <div class="alert alert-success fade in">
+         <a href="#" class="close" data-dismiss="alert">&times;</a>
+        <strong>Success!</strong> Screening Requested successfully.
+        
+        </div>
+        
+        <div>
+            <a href="view_patient.jsp?PatientID=<%=patientid%>"><button>Back to Patient Profile</button></a>
+        </div>
            
            <%     
          }

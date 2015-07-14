@@ -11,6 +11,7 @@
 <%
     String username = (String)session.getAttribute("User_Name");
     String department = (String)session.getAttribute("Department");
+    int staffid = (Integer)session.getAttribute("staffid");
 %><!DOCTYPE html>
 <!doctype html>
 <html lang="en"><head>
@@ -151,9 +152,11 @@
     Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/cancer",  "root", "");
     Statement st = con.createStatement();
     ResultSet rs,rs1;
-    int pid=0;
+    int pid=0, patientID2=0;
     String pid1;
     rs = st.executeQuery("select patientID,fname, lname from patient");
+    
+    pid=rs.getInt(1);
     
     
                 
@@ -173,7 +176,8 @@
               <%
                 while(rs.next()){
                     
-                    pid=rs.getInt("patientID");
+                    pid=rs.getInt(1);
+                    
                     %>
                 <option  value="postrate" name="patient"><%= rs.getString(1) %> <%= rs.getString(2) %>  <%= rs.getString(3) %></option>
                 
@@ -193,6 +197,7 @@
               
                 <div>
                     <input type="HIDDEN" name="patientID" value="<%=pid%>" class="form-control">
+                    <input type="HIDDEN" name="staffid" value="<%=staffid%>" class="form-control">
                 </div>
                 
                 

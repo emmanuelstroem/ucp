@@ -319,15 +319,14 @@ while(rs.next())
      <thead>
       
  <tr>-------------------------------</tr><br />
-<tr><b>PRESCRIPTIONS</b></tr><br />
+<tr><b>SCREENING REQUESTS</b></tr><br />
 <tr>-------------------------------</tr>
      
      <th>Date </th>
-     <th> Drug </th>
-     <th> Dosage </th>
-     <th> Duration </th>
-     <th> Checkup </th>
-     <th> Staff Name </th>
+     <th> Request No </th>
+     <th> Patient Name </th>
+     <th> Screen For </th>
+     <th> Requested By  </th>
 
      
       <th style="width: 3.5em;"></th>
@@ -336,25 +335,29 @@ while(rs.next())
   </thead>
   <tbody>   
         <% int prescount=0;
-               rs=stmt.executeQuery("select prescription.*, patient.*, staffs.* from  prescription INNER JOIN patient ON prescription.patientID=patient.patientID INNER JOIN staffs ON prescription.staffid=staffs.staffid AND prescription.patientID='"+PatientID+"';");
+               rs=stmt.executeQuery("select screensrequest.*, cancer.*, patient.*, staffs.* from screensrequest JOIN cancer ON screensrequest.cancerid=cancer.cancerid JOIN patient ON screensrequest.PatientID=patient.PatientID JOIN staffs ON screensrequest.staffid=staffs.staffid AND screensrequest.patientID='"+PatientID+"';");
                
                
                
 while(rs.next())
 { %>   <%
-               prescriptionid=rs.getInt("prescriptionid");
+               requestid=rs.getInt("requestid");
                PatientID=rs.getInt("PatientID");
-               drug=rs.getString("drug");
-               prescription=rs.getString("prescription");
-               duration=rs.getString("duration");
-               date1=rs.getDate("date");
+               cancerid=rs.getInt("cancerid");
+               cancername=rs.getString("cancername");
+               date1=rs.getDate("screensrequest.date");
                firstname=rs.getString("first_Name");
                lastname=rs.getString("last_name");
-               session.setAttribute("prescriptionid",prescriptionid);
+               fname=rs.getString("fname");
+               lname=rs.getString("lname");
+               staffid=rs.getInt("staffid");
+               session.setAttribute("requestid",requestid);
                session.setAttribute("PatientID", PatientID);
-               session.setAttribute("drug", drug);
-               session.setAttribute("prescription",prescription);
-               session.setAttribute("duration",duration);
+               session.setAttribute("cancerid", cancerid);
+               session.setAttribute("staffid",staffid);
+               session.setAttribute("cancername",cancername);
+               session.setAttribute("lname",lname);
+               session.setAttribute("fname",fname);
                session.setAttribute("date1",date1);
                session.setAttribute("first_Name", firstname);
                session.setAttribute("last_name", lastname);
@@ -362,11 +365,13 @@ while(rs.next())
 %>
               
               <td><%=date1%></td>
-              <td><%=drug%></td>
-              <td><%=prescription%></td>
-              <td><%=duration%></td>
-              <td><%= PatientID%></td>
-               <td><%=firstname%> <%=lastname%></td>
+              <td><%=requestid%></td>
+              <td><%=fname%> <%=lname%></td>
+              <td><%=cancername%></td>
+              <td><%=firstname%> <%=lastname%></td>
+              <td>
+                  <div align="left">  <button type="button"   class="btn btn-info brand" data-toggle="modal" data-target="#results"> Results</button> </div>
+              </td>
 
     </tr>
 <% }  %>
@@ -376,16 +381,13 @@ while(rs.next())
     
 </table>
 
-    
-<div align="left">  <button type="button"   class="btn btn-info brand" data-toggle="modal" data-target="#prescribe"> Prescribe</button> </div>
-<div align="center">  <button type="button"   class="btn btn-info btn-success" data-toggle="modal" data-target="#screen"> Screening</button> </div>
 <a href="health_record.jsp"><div align="right">  <button type="button"   class="btn btn-info btn-warning" data-toggle="modal" data-target="#healthrecord"> History</button> </div> </a>
 
   
 
 <!------------------------------------------------------------------------------------------------------------------------------------- -->
 
-<div class="modal small fade" id="prescribe" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+<div class="modal small fade" id="results" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
         <h4 class="alert" align="center">Prescription Form</h4>
@@ -398,19 +400,54 @@ while(rs.next())
                 <h3>Name: <b><%= session.getAttribute("fname")%> <%= session.getAttribute("lname")%></b></h3>
             <input type="hidden" name="PatientID" value="<%=PatientID1%>" >
             <input type="hidden" name="staffid" value="<%=staffid%>" >
+            <input type="hidden" name="requestid" value="<%=requestid%>" >
+            <input type="hidden" name="cancerid" value="<%=cancerid%>" >
         <div class="form-group">
-            <label>Drug:</label><input type="text" name="drug" class="form-control">
+            <label>Primary Site: </label> <input type="text" name="primarysite" class="form-control">
         </div>
         <div class="form-group">
-            <label>Dosage: </label><input type="text" name="dosage" class="form-control">
+            <label>Histology:</label><input type="text" name="histology" class="form-control">
+        </div>
+        <div class="form-group">
+            <label>Sequence No: </label><input type="text" name="seqnum" class="form-control">
             
         </div>
         <div class="form-group">
-            <label>Duration(days): </label><input type="text" name="duration" class="form-control">
+            <label>Behavior: </label><input type="text" name="behavior" class="form-control">
             
         </div>
         <div class="form-group">
-            <label>Return Date: </label> <input type="date" name="checkup" class="form-control">
+            <label>Grade: </label> <input type="text" name="grade" class="form-control">
+        </div>
+        <div class="form-group">
+            <label>Laterality: </label> <input type="text" name="laterality" class="form-control">
+        </div>
+        <div class="form-group">
+            <label>Diagnosis Confirmation: </label> <input type="text" name="diagconfirm" class="form-control">
+        </div>
+        <div class="form-group">
+            <label>Clinic T: </label> <input type="text" name="clinict" class="form-control">
+        </div>
+        <div class="form-group">
+            <label>Clinic N: </label> <input type="text" name="clinicn" class="form-control">
+        </div>
+        <div class="form-group">
+            <label>Clinic M: </label> <input type="text" name="clinicm" class="form-control">
+        </div>
+        <div class="form-group">
+            <label>Clinical Stage Group: </label> <input type="text" name="clinstagegrp" class="form-control">
+        </div>
+        <div class="form-group">
+            <label>Pathologic T: </label> <input type="text" name="patht" class="form-control">
+        </div>
+        <div class="form-group">
+            <label>Pathologic N: </label> <input type="text" name="pathn" class="form-control">
+        </div>
+        <div class="form-group">
+            <label>Pathologic M: </label> <input type="text" name="pathm" class="form-control">
+        </div>
+        <div class="form-group">
+            <label>Pathologic Stage Group: </label> <input type="text" name="grade" class="form-control">
         </div>
          
           <div class="btn-toolbar list-toolbar">

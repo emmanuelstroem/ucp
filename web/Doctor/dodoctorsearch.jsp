@@ -13,6 +13,7 @@
 <%
     String username = (String)session.getAttribute("User_Name");
     String department = (String)session.getAttribute("Department");
+    int staffid = (Integer)session.getAttribute("staffid");
 %>
 <!doctype html>
 <html lang="en"><head>
@@ -161,6 +162,7 @@ return false;
                     <ul class="breadcrumb">
             <li><a href="index.jsp">Home</a> </li>
             <li class="active">Users</li>
+            <li><%=staffid%></li>
         </ul>
 
         </div>
@@ -238,7 +240,7 @@ while(rs.next())
       <td><%= sex %></td>
        <td><%=BirthPlace%></td>
        
-       <td><div align="center"><a href="view_patient.jsp?PatientID=<%=PatientID%>"><i class="fa fa-folder-open"></i>Load Details</a></div></td>
+       <td><div align="center"><a href="view_patient.jsp?PatientID=<%=PatientID%>"><i class="fa fa-folder-open"></i>Load</a></div></td>
               <td><div align="center"><a href="view_patient.jsp?delete_patient=yes&PatientID=<%=PatientID%>" onclick="return del()"><i class="fa fa-trash-o"></i>
 </a></div></td>
             </tr>

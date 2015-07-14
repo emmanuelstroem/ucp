@@ -1,92 +1,67 @@
 <%-- 
-    Document   : updatepatient
-    Created on : Jul 1, 2015, 1:15:04 PM
-    Author     : Developer
+    Document   : updatePatient
+    Created on : Jul 2, 2015, 5:22:10 PM
+    Author     : cle-13
 --%>
 
+<%@page import="java.util.Enumeration"%>
+<%@page import="java.util.*" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 
- <%@ include file="include/common.jsp" %>
+<%
+    String username = (String)session.getAttribute("User_Name");
+    String department = (String)session.getAttribute("Department");
+%>
+<%@ include file="include/common.jsp" %>
 <%@ include file="include/database.jsp" %>
+
+
 <!DOCTYPE html>
-
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
-<head>
-<script type="text/javascript">
-function del()
-{
-if(confirm("Do You Want to Delete this Patient?"))
-{
-}
-else
-{
-return false;
-}
-}
-</script>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
-<title></title>
-<link rel="stylesheet" href="images/style.css" type="text/css" charset="utf-8" />
-</head>
-
-
-
-<body>
-<% 
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <title>Update Success</title>
+    </head>
+    <body>
+        <h1>Update Success!</h1>
+        <%
 PatientID1=request.getParameter("PatientID");
-firstName=request.getParameter("firstName");
-if(PatientID1!=null)
+if(PatientID1!=null){
 PatientID=Integer.parseInt(PatientID1);
-delete_patient=request.getParameter("delete_patient");
 
-if("yes".equals(delete_patient))
-{
-firstname=request.getParameter("firstName");
-x=stmt1.executeUpdate("Delete from patient where PatientID="+PatientID);
-}
+fname=request.getParameter("fname");
+lname=request.getParameter("lname");
+BirthPlace=request.getParameter("birthplace");
+occupation=request.getParameter("occupation");
+contact=request.getParameter("contact");
+
+pstmt=con.prepareStatement("Update patient set fname=?,lname=?, BirthPlace=?, occupation=?, contact=? where PatientID="+PatientID);
+
+
+pstmt.setString(1,fname);
+pstmt.setString(2,lname);
+pstmt.setString(3,BirthPlace);
+pstmt.setString(4,occupation);
+pstmt.setString(5,contact);
+
+pstmt.executeUpdate();
+
+con.close();
+session.setAttribute("update_patient","patient ("+fname+") updated successfully");
+
+
+}else{
+    
+out.print("This is BADDDD!!!");
 %>
 
-    
-        <h2>VIEW PATIENTS    <table width="736" height="97" border="1"></h2>
-        
-         
-           <% if(x==1)
-	{
-	%> <tr bgcolor="#000000">
-              <th  height="35"  colspan="9"><div align="center">
-			  Patient (<%=firstname%>) deleted successfully
-			  </div></th>
-            </tr>
-			<%}%>
-            <tr bgcolor="#06FF0">
-              <td><div align="center"><strong>SLNO</strong></div></td>
-              <td><div align="center"><strong>FIRST  NAME </strong></div></td>
-              <td><div align="center"><strong>LAST NAME </strong></div></td>
-              <td><div align="center"><strong>SEX </strong></div></td>
-              <td><div align="center"><strong>PLACE OF BIRTH</strong></div></td>
-              <td colspan="2"><div align="center"><strong>ACTION</strong></div></td>
-            </tr>
-<% int icount=0;
-rs=stmt.executeQuery("select * from patient");
-while(rs.next())
-{ PatientID=rs.getInt("patientID");
- %>
-            <tr>
-              
-              <td><%=rs.getString("patientID")%></td>
-              <td><%=rs.getString("firstName")%></td>
-              <td><%=rs.getString("lname")%></td>
-              <td><%=rs.getString("sex")%></td>
-              <td><%=rs.getString("BirthPlace")%></td>
-              <td><div align="center"><a href="edit_patient.jsp?PatientID=<%=PatientID%>">Edit</a></div></td>
-              <td><div align="center"><a href="view_patient.jsp?delete_patient=yes&PatientID=<%=PatientID%>" onclick="return del()">Delete</a></div></td>
-            </tr>
-<% }  %>			
-        </table>
-        <a href="add_patient.jsp">Add Patient</a>
-          
-</body>
+<h2>Error in Updating Patient Details</h2>
+<%
+}
+%>
+<jsp:forward page="editPatient.jsp">
+<jsp:param name="patientID" value="<%=PatientID%>" />
+</jsp:forward>
+
+    </body>
 </html>
-
-

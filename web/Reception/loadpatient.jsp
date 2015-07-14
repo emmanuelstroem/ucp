@@ -203,6 +203,10 @@ x=stmt1.executeUpdate("Delete from patient where PatientID="+PatientID);
   <tbody>
   <%
             while(resultset.next()){ 
+                
+                
+                PatientID=resultset.getInt(1);
+                
                
         %>
             <tr>

@@ -13,6 +13,7 @@
 <%
     String username = (String)session.getAttribute("User_Name");
     String department = (String)session.getAttribute("Department");
+    int staffid = (Integer)session.getAttribute("staffid");
 %>
 <!doctype html>
 <html lang="en">
@@ -200,11 +201,16 @@ $('#formbox').slideUp('fast');
          String  duration =request.getParameter("duration");
            
          String  date =request.getParameter("checkup");
-        // staffid=request.getParameter("staffid");
-          staffid="3";
-         int PatientID1=(Integer)session.getAttribute("PatientID");
+         
+         String pid = request.getParameter("PatientID");
+         
+         //String staffid = request.getParameter("staffid");
+         
+         
+        // staffid=request.getParameter("staffid")
+         int PatientID=(Integer)session.getAttribute("PatientID");
  
-       x= stmt.executeUpdate("insert into prescription(PatientID, drug, prescription, duration, checkup) values ('"+PatientID1+"','"+drug+"','"+dosage+"','"+duration+"','"+date+"')");
+       x= stmt.executeUpdate("insert into prescription(PatientID, drug, prescription, duration, checkup, staffid) values ('"+pid+"','"+drug+"','"+dosage+"','"+duration+"','"+date+"','"+staffid+"')");
         
        %>
        
@@ -212,12 +218,16 @@ $('#formbox').slideUp('fast');
            %>
            
            
-    <div class="alert alert-success fade in">
-    <a href="#" class="close" data-dismiss="alert">&times;</a>
-    <strong>Success!</strong> Prescription Saved!!
-    </div>
-         
-           
+           <div class="alert alert-success fade in">
+            <a href="#" class="close" data-dismiss="alert">&times;</a>
+            <strong>Success!</strong> Prescription recorded successfully.
+
+            </div>
+
+            <div>
+                <a href="view_patient.jsp?PatientID=<%=pid%>"><button>Back to Patient Profile</button></a>
+            </div>
+
            <%     
          }
 
