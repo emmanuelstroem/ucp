@@ -314,12 +314,11 @@ while(rs.next())
     
 </table>
 
-
 <table class="table">
      <thead>
       
  <tr>-------------------------------</tr><br />
-<tr><b>PRESCRIPTIONS</b></tr><br />
+<tr><b>SCREENINGS</b></tr><br />
 <tr>-------------------------------</tr>
      
      <th>Date </th>
@@ -335,7 +334,7 @@ while(rs.next())
       
   </thead>
   <tbody>   
-        <% int prescount=0;
+        <% int screencount=0;
                rs=stmt.executeQuery("select prescription.*, patient.*, staffs.* from  prescription INNER JOIN patient ON prescription.patientID=patient.patientID INNER JOIN staffs ON prescription.staffid=staffs.staffid AND prescription.patientID='"+PatientID+"';");
                
                
@@ -375,10 +374,74 @@ while(rs.next())
     </tbody>
     
 </table>
+<div align="left">  <button type="button"   class="btn btn-info btn-success" data-toggle="modal" data-target="#screen"> New Screening</button> </div>
+
+
+<table class="table">
+     <thead>
+      
+ <tr>-------------------------------</tr><br />
+<tr><b>PRESCRIPTIONS</b></tr><br />
+<tr>-------------------------------</tr>
+     
+     <th>Date </th>
+     <th> Cancer </th>
+     <th> Primary Site </th>
+     <th> Histology </th>
+     <th> Seq No </th>
+     <th> Staff Name </th>
+
+     
+      <th style="width: 3.5em;"></th>
+      
+      
+  </thead>
+  <tbody>   
+        <% int prescount=0;
+               rs=stmt.executeQuery("select screens_result.*, screensrequest.*, cancer.*, staffs.*, patient.*  from  screens_result INNER JOIN screensrequest ON screens_result.requestid=screensrequest.requestid INNER JOIN staffs ON screens_result.staffid=staffs.staffid INNER JOIN cancer on screens_result.cancerid=cancer.cancerid INNER JOIN patient ON screens_result.patientID=patient.patientID AND screens_result.patientID='"+PatientID+"';");
+               
+               
+               
+while(rs.next())
+{ %>   <%
+               cancername=rs.getString("cancername");
+               PatientID=rs.getInt("PatientID");
+               primarysite=rs.getString("primarysite");
+               histology=rs.getString("histology");
+               seqnum=rs.getString("seqnum");
+               firstname=rs.getString("first_Name");
+               lastname=rs.getString("last_name");
+               behaviour=rs.getString("behaviour");
+               grade=rs.getString("grade");
+               date1=rs.getDate("date");
+               session.setAttribute("prescriptionid",prescriptionid);
+               session.setAttribute("PatientID", PatientID);
+               session.setAttribute("drug", drug);
+               session.setAttribute("prescription",prescription);
+               session.setAttribute("duration",duration);
+               session.setAttribute("date1",date1);
+               session.setAttribute("first_Name", firstname);
+               session.setAttribute("last_name", lastname);
+              
+%>
+              
+              <td><%=date1%></td>
+              <td><%=cancername%></td>
+              <td><%=primarysite%></td>
+              <td><%=histology%></td>
+              <td><%= seqnum%></td>
+               <td><%=firstname%> <%=lastname%></td>
+
+    </tr>
+<% }  %>
 
     
-<div align="left">  <button type="button"   class="btn btn-info brand" data-toggle="modal" data-target="#prescribe"> Prescribe</button> </div>
-<div align="center">  <button type="button"   class="btn btn-info btn-success" data-toggle="modal" data-target="#screen"> Screening</button> </div>
+    </tbody>
+    
+</table>
+
+    
+<div align="left">  <button type="button"   class="btn btn-info brand" data-toggle="modal" data-target="#prescribe">New Prescribe</button> </div>
 <a href="health_record.jsp"><div align="right">  <button type="button"   class="btn btn-info btn-warning" data-toggle="modal" data-target="#healthrecord"> History</button> </div> </a>
 
   

@@ -6,7 +6,7 @@ String patient="", firstName="", lname="",sex="", BirthPlace="", DOB="", lastnam
 String Birthplace=""; String triage="",  fname="", staffid="", rs5="";
 String prescription="",bp="", othername="", email="", occupation="", tribe="", district="", region="", contact="", village="", county=""; 
 String subcounty="", parish="", id="", patientid="", drug="", dosage="", duration="", cancername="";
-int pid=0, cancerid=0, cid=0, pid2=0, prescount=0, prescriptionid=0, requestid=0, screenid=0, sid=0;
+int pid=0, cancerid=0, cid=0, pid2=0, prescount=0, prescriptionid=0, requestid=0, screenid=0, sid=0, sequenceid=0;
 
 Date date1;
 String item="",item_name="",PatientID1="",item_code="",item_category="",item_price1="",ingredients="",date_added="";
@@ -22,4 +22,10 @@ int x=0,triageid=0,temperature=0,slno=0,weight=0,pulse=0,height=0,ingredient_sln
 double item_price=0.0,ingredient_price=0.0,quantity=0.0,ing_quantity=0.0;
 
 
+//Screening Variables
+
+String primarysite="", primarysitevalue="", histology="", seqnum="", behaviour="", grade="", laterality="", diagconfirm="", clinicalt="", clinicaln="", clinicalm="";
+String clinicalstage="", pathologict="", pathologicn="", pathologicm="", pathologicstage="";
+String staff="", screeningcomment="", staffid3="";
+int staff2=0;
 %>

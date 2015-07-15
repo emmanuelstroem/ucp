@@ -239,7 +239,7 @@ x=stmt1.executeUpdate("Delete from patient where PatientID="+PatientID);
         <td><%= cancername%></td>
         <td><%= firstname%> <%=lastname%></td>
         <td>
-            <div align="center"><a href="view_patient.jsp?PatientID=<%=PatientID%>"><i class="fa fa-pencil"></i></a></div>
+            <div align="center"><a href="view_screening.jsp?PatientID=<%=PatientID%>"><i class="fa fa-pencil"></i></a></div>
         </td>
               </tr>
             <%
