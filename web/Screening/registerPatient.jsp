@@ -227,7 +227,6 @@
         <label>parish:</label>
         <input type="text" name="parish" class="form-control">
         </div>
-        
           
           <div class="btn-toolbar list-toolbar">
       <button type="submit" class="btn btn-primary"><i class="fa fa-save"></i> Save</button>

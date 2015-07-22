@@ -8,6 +8,12 @@
 <%@ page import ="java.sql.*" %>
 <%@ include file="include/common.jsp" %>
 <%@ include file="include/database.jsp" %>
+
+<%
+    String username = (String)session.getAttribute("User_Name");
+    String department = (String)session.getAttribute("Department");
+    int staffid = (Integer)session.getAttribute("staffid");
+%>
 <!doctype html>
 <html lang="en"><head>
     <meta charset="utf-8">
@@ -133,7 +139,7 @@ x=stmt1.executeUpdate("Delete from patient where PatientID="+PatientID);
           <ul id="main-menu" class="nav navbar-nav navbar-right">
             <li class="dropdown hidden-xs">
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                    <span class="glyphicon glyphicon-user padding-right-small" style="position:relative;top: 3px;"></span> Jack Smith
+                    <span class="glyphicon glyphicon-user padding-right-small" style="position:relative;top: 3px;"></span>  <b><%=username%></b> (<%=department%>)
                     <i class="fa fa-caret-down"></i>
                 </a>
 
@@ -182,7 +188,7 @@ x=stmt1.executeUpdate("Delete from patient where PatientID="+PatientID);
             String fname = request.getParameter("fname");    
             String lname = request.getParameter("lname"); 
             Class.forName("com.mysql.jdbc.Driver");
-            Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/cancer","root", "");
+            Connection connection = DriverManager.getConnection("jdbc:mysql://us-cdbr-iron-east-02.cleardb.net/heroku_c79a07203b819b6?reconnect=true", "b7895ee3eb8ef0", "b2e4df22");
 
             Statement statement = connection.createStatement();
 

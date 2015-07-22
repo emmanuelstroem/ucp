@@ -4,6 +4,8 @@
     Author     : ken
 --%>
 
+<%@ include file="../Reception/include/common.jsp" %>
+<%@ include file="../Reception/include/database.jsp" %>
 <%@page import="java.util.Enumeration"%>
 <%@page import="java.util.*" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
@@ -11,6 +13,7 @@
 <%
     String username = (String)session.getAttribute("User_Name");
     String department = (String)session.getAttribute("Department");
+    int staffid =(Integer)session.getAttribute("staffid");
 %>
 <!DOCTYPE html>
 <html lang="en"><head>
@@ -24,13 +27,45 @@
     <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,700' rel='stylesheet' type='text/css'>
     <link rel="stylesheet" type="text/css" href="lib/bootstrap/css/bootstrap.css">
     <link rel="stylesheet" href="lib/font-awesome/css/font-awesome.css">
+    
+    <link rel="stylesheet" href="lib/datepicker/css/datepicker.css">
+    <script src="lib/datepicker/js/bootstrap-datepicker.js" type="text/javascript"></script>
+    
 
     <script src="lib/jquery-1.11.1.min.js" type="text/javascript"></script>
+    <script src="lib/jquery-2.1.4.js" type="text/javascript"></script>
+    <script src="lib/collapse.js" type="text/javascript"></script>
+    <script src="lib/transition.js" type="text/javascript"></script>
+
 
     
 
     <link rel="stylesheet" type="text/css" href="stylesheets/theme.css">
     <link rel="stylesheet" type="text/css" href="stylesheets/premium.css">
+    
+    
+    
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
+  <script src="//code.jquery.com/jquery-1.10.2.js"></script>
+  <script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
+  <link rel="stylesheet" href="/resources/demos/style.css">
+  <script>
+
+  $(function() {
+    $( "#datepicker" ).datepicker({
+
+        yearRange: "-80:+0",
+        todayBtn: "linked",
+        clearBtn: true,
+        changeMonth: true,
+        changeYear: true
+    });
+  });
+
+
+  </script>
+  
+  
 
 </head>
 <body class=" theme-blue">
@@ -51,6 +86,7 @@
             $('[data-popover="true"]').popover({html: true});
             
         });
+        
     </script>
     <style type="text/css">
         #line-chart {
@@ -151,30 +187,140 @@
         </div>
         <div class="main-content">
             
-            Session attributes:
-<%
-  session.setAttribute("test.name", "Test Attribute List");
-  session.setAttribute("test.float", new Float(5.0));
-  session.setAttribute("test.int", new Integer(10));
-  session.setAttribute("test.Object", new StringBuffer("StringBuffer"));
-  session.setAttribute("test.boolean", new Boolean(true));
-  session.setAttribute("test.double", new Double(343.1));
-  for (Enumeration e = session.getAttributeNames(); e.hasMoreElements(); ) {     
-    String attribName = (String) e.nextElement();
-    Object attribValue = session.getAttribute(attribName);
-%>
-<BR><%= attribName %> - <%= attribValue %>
+            <div class="row" style="text-align: center;">
+                    <div class="pull-left unstyled col-sm-4 col-md-4">
+                        <p><button class="btn btn-default" data-toggle="modal" data-target="#register" style="width: 150px;">Register Patient</button></p>
+                        <p><a href="searchPatient.jsp" class="btn btn-default" style="width: 150px;">Search Patients</a></p>
+                        
+                    </div>
+                </div>
+            
+            
+            
+            
+            <div class="modal small fade" id="register" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                  <div class="modal-content">
+                      <h4 class="alert" align="center">Registration Form</h4>
 
-<%
-}
-%>
+                    <div class="modal-body">
+                     <div id="myTabContent" class="tab-content">
+                      <div class="tab-pane active in" id="home">
+                          <form action="doregisterPatient.jsp" method="post" name="registration" >
+                          
+                          <input type="hidden" name="staffid" value="<%=staffid%>" >
+                        <div class="form-group">
+                            <label>First Name:</label>
+                        <input type="text" name="fname" class="form-control">
+                        </div>
+                        <div class="form-group">
+                        <label>Last Name</label>
+                        <input type="text" name="lname" class="form-control">
+                        </div>
+                        <div class="form-group">
+                        <label>Other name</label>
+                        <input type="text" name="othername" class="form-control">
+                        </div>
+                        <div class="form-group">
+                        <label>Email</label>
+                        <input type="email" name="email" class="form-control">
+                        </div>
+                          <div class="form-group">
+                            <label>Sex:</label><br />
+                            <input type="radio" name="sex" value="Male"> Male<br>
+                            <input type="radio" name="sex" value="Female"> Female
+                            </div>
+                            <div class="form-group">            
+                        <label>Birth Place:</label>
+                        <input type="text" name="birthplace" class="form-control" data-provide="dob">
+                        </div>
+                          <div>
+                            <label>Date Of Bith:</label>
+                            
+                        <input type="text" name="DOB" id="datepicker" class="form-control dob">
+                        </div>
+                          <div>
+                          <label>Occupation:</label>
+                        <input type="text" name="occupation" class="form-control">
+                        </div>
+                          <div>
+                        <label>Tribe:</label>
+                        <input type="text" name="tribe" class="form-control">
+                        </div>
+                        <div>
+                        <label>Nationality:</label><br />
+                        <select name="country">
 
+                            <%
+                                rs2=stmt.executeQuery("select * from countries");
+                                
+                                    while(rs2.next()){
 
+                                    nationality=rs2.getString(3);
+                            %>
+                             <option type="text" name="country" class="form-control"><%=nationality%></option>
+                        
+                             <%
+                                    }
+                             %>
+                        </select>
+                        </div>
+                         <div>
+                        <label>District:</label>
+                        <input type="text" name="district" class="form-control">
+                        </div>
+                          <div>
+                        <label>Region:</label>
+                        <input type="text" name="region" class="form-control">
+                        </div>
+                            <div>
+                            <label>Contact:</label>
+                        <input type="text" name="contact" class="form-control">
+                        </div>
+                            <div>
+                        <label>Village:</label>
+                        <input type="text" name="village" class="form-control">
+                        </div>
+                            <div>
+                        <label>County:</label>
+                        <input type="text" name="county" class="form-control">
+                        </div>
+                            <div>
+                        <label>Sub-County:</label>
+                        <input type="text" name="subcounty" class="form-control">
+                        </div>
+                            <div>
+                        <label>Parish:</label>
+                        <input type="text" name="parish" class="form-control">
+                        </div>
+                        <div>
+                        <br />
+                        </div>
+                        <br />
+
+                        <div class="btn-toolbar list-toolbar">
+
+                            <a href="#register" data-dismiss="modal" class="btn btn-danger">Cancel</a>
+                            <button type="submit" class="btn btn-save"><i class="fa fa-save"></i> Save</button>
+                        </div>
+                      </form>
+                    </div>
+
+                    <div class="tab-pane fade" id="profile">
+
+                    </div>
+                   </div>
+                </div>
+        
+              </div>
+            </div> 
+        </div> 
+                        
             <footer>
                 <hr>
 
                 <!-- Purchase a site license to remove this link from the footer: http://www.portnine.com/bootstrap-themes -->
-                <p class="pull-right">A <a href="http://www.uci.org" target="_blank">UCI</a> by <a href="http://ihsu.ac.ug" target="_blank">IHSU</a></p>
+                <p class="pull-right"> <a href="http://www.uci.org" target="_blank">UCI</a> by <a href="http://ihsu.ac.ug" target="_blank">IHSU</a></p>
                 <p>© 2015 <a href="http://www.portnine.com" target="_blank">UCI</a></p>
             </footer>
         </div>

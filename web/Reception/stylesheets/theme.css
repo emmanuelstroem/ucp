@@ -707,7 +707,7 @@ a.panel-heading:hover,
   background-clip: padding-box;
 }
 .modal.small .modal-dialog {
-  width: 370px;
+  width: 700px;
 }
 .modal.small .modal-dialog .modal-body {
   padding: 1em;

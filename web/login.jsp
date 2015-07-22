@@ -1,9 +1,7 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
-    "http://www.w3.org/TR/html4/loose.dtd">
-
-<html>
+<!DOCTYPE html>
+<html lang="en">
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>UCP</title>
@@ -21,7 +19,7 @@
     int staffid=0;
     String DptPharmacy = Department;
     Class.forName("com.mysql.jdbc.Driver");
-    Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/cancer",  "root", "");
+    Connection con = DriverManager.getConnection("jdbc:mysql://us-cdbr-iron-east-02.cleardb.net/heroku_c79a07203b819b6?reconnect=true",  "b7895ee3eb8ef0", "b2e4df22");
     Statement st = con.createStatement();
     ResultSet rs,rs1,rs3;
     rs = st.executeQuery("select * from staffs where User_Name='" + username + "' and pass_Word='" + password + "'");

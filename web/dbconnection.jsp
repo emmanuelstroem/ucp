@@ -21,14 +21,14 @@
       System.out.println("Error occurred " + e);
      }
      try {
-       conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/cance", "root","");
+       conn = DriverManager.getConnection("jdbc:mysql://us-cdbr-iron-east-02.cleardb.net/heroku_c79a07203b819b6?reconnect=true",  "b7895ee3eb8ef0", "b2e4df22");
      }
      catch (SQLException e) {
         System.out.println("Error occurred " + e);
      }
      try {
         stmt = conn.createStatement();
-        result = stmt.executeQuery("SELECT * FROM Staffs");
+        result = stmt.executeQuery("SELECT * FROM staffs");
      }
      catch (SQLException e) {
          System.out.println("Error occurred " + e);

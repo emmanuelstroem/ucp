@@ -28,4 +28,8 @@ String primarysite="", primarysitevalue="", histology="", seqnum="", behaviour="
 String clinicalstage="", pathologict="", pathologicn="", pathologicm="", pathologicstage="";
 String staff="", screeningcomment="", staffid3="";
 int staff2=0;
+
+
+//Reception variables
+String country="", nationality="";
 %>
