@@ -20,14 +20,33 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="">
     <meta name="author" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+  <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
 
     <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,700' rel='stylesheet' type='text/css'>
-    <link rel="stylesheet" type="text/css" href="lib/bootstrap/css/bootstrap.css">
-    <link rel="stylesheet" href="lib/font-awesome/css/font-awesome.css">
+    
 
-    <script src="lib/jquery-1.11.1.min.js" type="text/javascript"></script>
+    <link rel="stylesheet" type="text/css" href="../lib/bootstrap/css/bootstrap.css">
+    <link rel="stylesheet" href="../lib/font-awesome/css/font-awesome.css">
+    <link rel="stylesheet" href="../scripts/style.css" type="text/css" charset="utf-8" />
+    
+    <link rel="stylesheet" href="../lib/datepicker/css/datepicker.css">
+    <script src="../lib/datepicker/js/bootstrap-datepicker.js" type="text/javascript"></script>
+    
 
-        <script src="lib/jQuery-Knob/js/jquery.knob.js" type="text/javascript"></script>
+    <script src="../lib/jquery-1.11.1.min.js" type="text/javascript"></script>
+    <script src="../lib/jquery-2.1.4.js" type="text/javascript"></script>
+    <script src="../lib/collapse.js" type="text/javascript"></script>
+    <script src="../lib/transition.js" type="text/javascript"></script>
+
+    
+    
+    
+    <script src="../lib/jquery-1.11.1.min.js" type="text/javascript"></script>
+
+        <script src="../lib/jQuery-Knob/js/jquery.knob.js" type="text/javascript"></script>
     <script type="text/javascript">
         $(function() {
             $(".knob").knob();
@@ -35,8 +54,8 @@
     </script>
 
 
-    <link rel="stylesheet" type="text/css" href="stylesheets/theme.css">
-    <link rel="stylesheet" type="text/css" href="stylesheets/premium.css">
+    <link rel="stylesheet" type="text/css" href="../stylesheets/theme.css">
+    <link rel="stylesheet" type="text/css" href="../stylesheets/premium.css">
 
 </head>
 <body class=" theme-blue">
@@ -105,23 +124,19 @@
 
     <div class="navbar navbar-default" role="navigation">
         <div class="navbar-header">
-          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target=".navbar-collapse">
-            <span class="sr-only">Toggle navigation</span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-          </button>
+          
           <a class="" href="index.jsp"><span class="navbar-brand"><span class="fa fa-hospital-o"></span> Uganda Cancer Portal</span></a></div>
 
         <div class="navbar-collapse collapse" style="height: 1px;">
           <ul id="main-menu" class="nav navbar-nav navbar-right">
             <li class="dropdown hidden-xs">
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                    <span class="glyphicon glyphicon-user padding-right-small" style="position:relative;top: 3px;"></span><b><%=username%> </b>(<%=department%>)
+                    <span class="glyphicon glyphicon-user padding-right-small" style="position:relative;top: 3px;"></span><%=username%> (<%=department%>)
                     <i class="fa fa-caret-down"></i>
                 </a>
 
-              <ul class="dropdown-menu">
+              <ul class="dropdown-menu">                
+                
                 <li><a tabindex="-1" href="../logout.jsp">Logout</a></li>
               </ul>
             </li>

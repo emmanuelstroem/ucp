@@ -25,10 +25,11 @@
     <meta name="author" content="">
 
     <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,700' rel='stylesheet' type='text/css'>
-    <link rel="stylesheet" type="text/css" href="lib/bootstrap/css/bootstrap.css">
-    <link rel="stylesheet" href="lib/font-awesome/css/font-awesome.css">
-
-    <script src="lib/jquery-1.11.1.min.js" type="text/javascript"></script>
+    <link rel="stylesheet" type="text/css" href="../lib/bootstrap/css/bootstrap.css">
+    <link rel="stylesheet" href="../lib/font-awesome/css/font-awesome.css">
+    <link rel="stylesheet" href="../scripts/style.css" type="text/css" charset="utf-8" />
+    
+    <script src="../lib/jquery-1.11.1.min.js" type="text/javascript"></script>
 
     
 

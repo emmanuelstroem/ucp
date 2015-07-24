@@ -45,7 +45,7 @@
     
     
     
-    <link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
+  <link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
   <script src="//code.jquery.com/jquery-1.10.2.js"></script>
   <script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
   <link rel="stylesheet" href="/resources/demos/style.css">
@@ -61,6 +61,16 @@
         changeYear: true
     });
   });
+  
+  function getNationality(){
+                 var NationalityBox = document.getElementById('NationalityBox');
+
+                /* selected value of dropdown */
+                var selectedNationality = NationalityBox.options[NationalityBox.selectedIndex].value;
+
+                /* selected value set to input field */
+              document.getElementById('nationality').value = selectedNationality; 
+        }
 
 
   </script>
@@ -166,7 +176,7 @@
     <li ><a href="registerPatient.jsp" class="nav-header"><span class="fa fa-pencil"></span> Register Patient</a></li>
     <li ><a href="triage.jsp" class="nav-header"><span class="fa fa-stethoscope"></span> Triage</a></li>
     <li ><a href="treatment.jsp" class="nav-header"><span class="fa fa-medkit"></span> Treatment</a></li>
-        <li ><a href="calendar.html" class="nav-header"><span class="fa fa-clock-o"></span> Appointments</a></li>
+    <li ><a href="calendar.html" class="nav-header"><span class="fa fa-clock-o"></span> Appointments</a></li>
    
     
 
@@ -249,7 +259,7 @@
                         </div>
                         <div>
                         <label>Nationality:</label><br />
-                        <select name="country">
+                        <select name="NationalityBox" id="NationalityBox" onchange="getNationality()">
 
                             <%
                                 rs2=stmt.executeQuery("select * from countries");
@@ -258,13 +268,14 @@
 
                                     nationality=rs2.getString(3);
                             %>
-                             <option type="text" name="country" class="form-control"><%=nationality%></option>
+                             <option type="hidden" name="nationality" class="form-control"><%=nationality%></option>
                         
                              <%
                                     }
                              %>
                         </select>
                         </div>
+                        <input type="text" name="nationality" id="nationality" class="form-control">
                          <div>
                         <label>District:</label>
                         <input type="text" name="district" class="form-control">

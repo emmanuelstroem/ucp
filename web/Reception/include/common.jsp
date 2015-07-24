@@ -27,9 +27,14 @@ double item_price=0.0,ingredient_price=0.0,quantity=0.0,ing_quantity=0.0;
 String primarysite="", primarysitevalue="", histology="", seqnum="", behaviour="", grade="", laterality="", diagconfirm="", clinicalt="", clinicaln="", clinicalm="";
 String clinicalstage="", pathologict="", pathologicn="", pathologicm="", pathologicstage="";
 String staff="", screeningcomment="", staffid3="";
-int staff2=0;
+int staff2=0, patid=0, reqid=0;
 
 
 //Reception variables
 String country="", nationality="";
+
+
+//Admin Variables
+String othernames="", dept="";
+int editstaffid=0;
 %>

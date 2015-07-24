@@ -188,7 +188,7 @@ x=stmt1.executeUpdate("Delete from patient where PatientID="+PatientID);
             String fname = request.getParameter("fname");    
             String lname = request.getParameter("lname"); 
             Class.forName("com.mysql.jdbc.Driver");
-            Connection connection = DriverManager.getConnection("jdbc:mysql://us-cdbr-iron-east-02.cleardb.net/heroku_c79a07203b819b6?reconnect=true", "b7895ee3eb8ef0", "b2e4df22");
+            Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/cancer","root", "");
 
             Statement statement = connection.createStatement();
 

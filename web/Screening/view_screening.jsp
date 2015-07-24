@@ -19,11 +19,11 @@
 <!doctype html>
 <html lang="en">
     <head><meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
-  <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
-  <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+    <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+    
     <title>UCP Search Results</title>
     <meta content="IE=edge,chrome=1" http-equiv="X-UA-Compatible">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -31,10 +31,10 @@
     <meta name="author" content="">
 
     <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,700' rel='stylesheet' type='text/css'>
-    <link rel="stylesheet" type="text/css" href="lib/bootstrap/css/bootstrap.css">
-    <link rel="stylesheet" href="lib/font-awesome/css/font-awesome.css">
+    <link rel="stylesheet" type="text/css" href="../lib/bootstrap/css/bootstrap.css">
+    <link rel="stylesheet" href="../lib/font-awesome/css/font-awesome.css">
 
-    <script src="lib/jquery-1.11.1.min.js" type="text/javascript"></script>
+    <script src="../lib/jquery-1.11.1.min.js" type="text/javascript"></script>
 
     <link rel="stylesheet" type="text/css" href="stylesheets/theme.css">
     <link rel="stylesheet" type="text/css" href="stylesheets/premium.css">
@@ -65,41 +65,9 @@ $('#formbox').slideUp('fast');
 }
 });
 });
-</script>
-<!-- ***************************************************** -->
-         <link rel="shortcut icon" href="../assets/ico/favicon.ico">
-    <link rel="apple-touch-icon-precomposed" sizes="144x144" href="../assets/ico/apple-touch-icon-144-precomposed.png">
-    <link rel="apple-touch-icon-precomposed" sizes="114x114" href="../assets/ico/apple-touch-icon-114-precomposed.png">
-    <link rel="apple-touch-icon-precomposed" sizes="72x72" href="../assets/ico/apple-touch-icon-72-precomposed.png">
-    <link rel="apple-touch-icon-precomposed" href="../assets/ico/apple-touch-icon-57-precomposed.png">
-  
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
-<title></title>
-<link rel="stylesheet" href="images/style.css" type="text/css" charset="utf-8" />
 
-</head>
-<body class=" theme-blue">
 
-    <!-- Demo page code -->
-
-    <script type="text/javascript">
-        $(function() {
-            var match = document.cookie.match(new RegExp('color=([^;]+)'));
-            if(match) var color = match[1];
-            if(color) {
-                $('body').removeClass(function (index, css) {
-                    return (css.match (/\btheme-\S+/g) || []).join(' ')
-                })
-                $('body').addClass('theme-' + color);
-            }
-
-            $('[data-popover="true"]').popover({html: true});
-            
-        });
-      });
-      
-      
-        
+   
         
         function getCancerID(){
                  var selectBox = document.getElementById('selectBox');
@@ -287,6 +255,40 @@ $('#formbox').slideUp('fast');
               document.getElementById('pathologicstage').value = selectedPathologicStage; 
         }
         
+        
+</script>
+<!-- ***************************************************** -->
+         <link rel="shortcut icon" href="../assets/ico/favicon.ico">
+    <link rel="apple-touch-icon-precomposed" sizes="144x144" href="../assets/ico/apple-touch-icon-144-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" sizes="114x114" href="../assets/ico/apple-touch-icon-114-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" sizes="72x72" href="../assets/ico/apple-touch-icon-72-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" href="../assets/ico/apple-touch-icon-57-precomposed.png">
+  
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+<title></title>
+<link rel="stylesheet" href="images/style.css" type="text/css" charset="utf-8" />
+
+</head>
+<body class=" theme-blue">
+
+    <!-- Demo page code -->
+
+    <script type="text/javascript">
+        $(function() {
+            var match = document.cookie.match(new RegExp('color=([^;]+)'));
+            if(match) var color = match[1];
+            if(color) {
+                $('body').removeClass(function (index, css) {
+                    return (css.match (/\btheme-\S+/g) || []).join(' ')
+                })
+                $('body').addClass('theme-' + color);
+            }
+
+            $('[data-popover="true"]').popover({html: true});
+            
+        });
+      });
+     
         
     </script>
     <style type="text/css">
@@ -584,6 +586,14 @@ while(rs.next())
             <input type="hidden" name="requestid" value="<%=requestid%>" >
             <input type="hidden" name="cancerid" value="<%=cancerid%>" >
             
+         <div class="form-group">
+            <label>Finding: </label> 
+            <select name="FindingBox" id="PrimarySiteBox" onchange="getFinding()" >
+                <option name="cancer" value="1"> <b>Positive</b></option>
+                <option name="cancer" value="0"> <b></b>Negative</option>
+            </select>
+        </div>
+            
             
         <div class="form-group">
             <label>Primary Site: </label> 
@@ -606,7 +616,7 @@ while(rs.next())
         <% } %>
         </select>
         </div>
-        <input type="hidden" name="primarysite" id="primarysite" class="form-control">
+        <input type="text" name="primarysite" id="primarysite" class="form-control">
         <div class="form-group">
             <label>Histology:</label>
             <select name="HistologyBox" id="HistologyBox" onchange="getHistology()" >

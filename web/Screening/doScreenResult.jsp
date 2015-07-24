@@ -17,11 +17,11 @@
 <!doctype html>
 <html lang="en">
     <head><meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
-  <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
-  <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+    <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+    
     <title>UCP Search Results</title>
     <meta content="IE=edge,chrome=1" http-equiv="X-UA-Compatible">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -54,15 +54,14 @@ ajax/libs/jquery/1.5/jquery.min.js"></script>
 
 <!-- ***************************************************** -->
 <script type="text/javascript">
-$('document').ready(function()
-{
-$('#form').ajaxForm( {
-target: '#preview',
-success: function() {
-$('#formbox').slideUp('fast');
-}
-});
-});
+    $('document').ready(function(){
+        $('#form').ajaxForm( {
+        target: '#preview',
+        success: function() {
+        $('#formbox').slideUp('fast');
+        }
+        });
+    });
 </script>
 <!-- ***************************************************** -->
          <link rel="shortcut icon" href="../assets/ico/favicon.ico">
@@ -238,6 +237,7 @@ $('#formbox').slideUp('fast');
         String staff2=request.getParameter("screen_staffid");
         // int PatientID=(Integer)session.getAttribute("PatientID");
  
+        
        x= stmt.executeUpdate("insert into screens_result(requestid, PatientID, staffid, cancerid, primarysite, histology, seqnum, behaviour, grade, laterality, diagconfirm, clinicalt, clinicaln, clinicalm, clinicalstage, pathologict, pathologicn, pathologicm, pathologicstage, comment) values ('"+requestid+"','"+pid+"','"+staff2+"','"+cancerid+"','"+primarysite+"','"+histology+"','"+seqnum+"','"+behaviour+"','"+grade+"','"+laterality+"','"+diagconfirm+"','"+clinicalt+"','"+clinicaln+"','"+clinicalm+"','"+clinicalstage+"','"+pathologict+"','"+pathologicn+"','"+pathologicm+"','"+pathologicstage+"','"+screeningcomment+"')");
         
        %>
