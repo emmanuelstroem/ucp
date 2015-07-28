@@ -31,10 +31,10 @@ int staff2=0, patid=0, reqid=0;
 
 
 //Reception variables
-String country="", nationality="";
+String country="", nationality="", finding="";
 
 
 //Admin Variables
 String othernames="", dept="";
-int editstaffid=0;
+int editstaffid=0, report=0;
 %>

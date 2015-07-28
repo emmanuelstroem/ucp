@@ -38,6 +38,36 @@
         $(function() {
             $(".knob").knob();
         });
+        
+        function getGender(){
+                 var GenderBox = document.getElementById('GenderBox');
+
+                /* selected value of dropdown */
+                var selectedGender = GenderBox.options[GenderBox.selectedIndex].text;
+
+                /* selected value set to input field */
+              document.getElementById('gender').value = selectedGender; 
+        }
+        
+        function getFinding(){
+                 var FindingBox = document.getElementById('FindingBox');
+
+                /* selected value of dropdown */
+                var selectedFinding = FindingBox.options[FindingBox.selectedIndex].value;
+
+                /* selected value set to input field */
+              document.getElementById('finding').value = selectedFinding; 
+        }
+        
+        function getNationality(){
+                 var NationalityBox = document.getElementById('NationalityBox');
+
+                /* selected value of dropdown */
+                var selectedNationality = NationalityBox.options[NationalityBox.selectedIndex].value;
+
+                /* selected value set to input field */
+              document.getElementById('nationality').value = selectedNationality; 
+        }
     </script>
 
 
@@ -160,24 +190,29 @@
             <h2 class="page-title">Select Criteria</h2>
               
 <div class="inner"> 
-    <form action="dostaffsearch.jsp" method="post">
+    <form action="results.jsp" method="post">
         <div class="form-group">
             <label>Gender: </label> 
-            <select name="FindingBox" id="PrimarySiteBox" onchange="getGender()" >
-                <option name="cancer" value="1"> <b>Female</b></option>
-                <option name="cancer" value="0"> <b></b>Male</option>
+            <select name="GenderBox" id="GenderBox" onchange="getGender()" >
+                <option name="sex"> <b>Select a Gender...</b></option>
+                <option name="sex" value="1"> <b>Female</b></option>
+                <option name="sex" value="0"> <b></b>Male</option>
             </select>
         </div>
+        <input type="hidden" name="gender" id="gender" class="form-control">
         <div class="form-group">
             <label>Findings: </label> 
-            <select name="FindingBox" id="PrimarySiteBox" onchange="getFinding()" >
-                <option name="cancer" value="1"> <b>Have Cancer</b></option>
-                <option name="cancer" value="0"> <b></b>Don't Have Cancer</option>
+            <select name="FindingBox" id="FindingBox" onchange="getFinding()" >
+                <option name="status"> <b>Select a Medical Fining...</b></option>
+                <option name="status" value="Positive"> <b>Have Cancer</b></option>
+                <option name="status" value="Negative"> <b></b>Don't Have Cancer</option>
             </select>
-        </div><div class="form-group">
+        </div>
+        <input type="hidden" name="finding" id="finding" class="form-control">
+        <div class="form-group">
             <label>Location: </label> 
-            <select name="PrimarySiteBox" id="PrimarySiteBox" onchange="getPrimarySite()" >
-              <option name="PrimarySiteBox"> <b>Select a Nationality...for now</b></option>
+            <select name="NationalityBox" id="NationalityBox" onchange="getNationality()" >
+              <option name="country"> <b>Select a Nationality...for now</b></option>
 
 
         <%  
@@ -189,7 +224,7 @@
        
         %>
             
-            <option name="NationalityBox"> <b><%= nationality%></b></option>
+            <option name="country"> <b><%= nationality%></b></option>
               
         
         <% } %>
@@ -197,7 +232,7 @@
         </div>
         <input type="hidden" name="nationality" id="nationality" class="form-control">
         
-        <div align="left">  <button type="button"   class="btn btn-info brand enter_results" data-toggle="modal" data-target="#results">Generate Report</button> </div>
+        <div align="left">  <button type="submit"   class="btn btn-info brand enter_results" data-toggle="modal" data-target="#results">Generate Report</button> </div>
         
     </form>
 
@@ -218,7 +253,7 @@
                 <hr>
 
                 <!-- Purchase a site license to remove this link from the footer: http://www.portnine.com/bootstrap-themes -->
-                <p class="pull-right" class="fa fa-github"><a href="http://github.com/oneklaw/App" target="_blank">Github</a> by <a href="http://ihsu.ac.ug" target="_blank">IHSU</a></p>
+                <p class="pull-right" class="fa fa-github"><a href="http://github.com/emmanuelstroem/ucp" target="_blank">Github</a> by <a href="http://ihsu.ac.ug" target="_blank">IHSU</a></p>
                 <p>© 2015 <a href="http://www.uci.or.ug/" target="_blank">UCI</a></p>
             </footer>
         </div>

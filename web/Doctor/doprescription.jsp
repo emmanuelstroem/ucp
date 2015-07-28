@@ -245,7 +245,7 @@ $('#formbox').slideUp('fast');
                 <hr>
 
                 <!-- Purchase a site license to remove this link from the footer: http://www.portnine.com/bootstrap-themes -->
-                <p class="pull-right" class="fa fa-github"><a href="http://github.com/oneklaw/App" target="_blank">Github</a> by <a href="http://ihsu.ac.ug" target="_blank">IHSU</a></p>
+                <p class="pull-right" class="fa fa-github"><a href="http://github.com/emmanuelstroem/ucp" target="_blank">Github</a> by <a href="http://ihsu.ac.ug" target="_blank">IHSU</a></p>
                 <p>© 2015 <a href="http://www.uci.or.ug/" target="_blank">UCI</a></p>
             </footer>
         </div>

@@ -7,13 +7,13 @@
 <%@page import="java.util.Enumeration"%>
 <%@page import="java.util.*" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@ include file="../Reception/include/common.jsp" %>
+<%@ include file="../Reception/include/database.jsp" %>
 
 <%
     String username = (String)session.getAttribute("User_Name");
     String department = (String)session.getAttribute("Department");
 %>
-<%@ include file="include/common.jsp" %>
-<%@ include file="include/database.jsp" %>
 
 
 <!DOCTYPE html>
@@ -34,9 +34,8 @@
         if(result!=null){
             
             Class.forName("com.mysql.jdbc.Driver");
-            Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/cancer","root", "");
-
-            Statement statement = connection.createStatement();
+            
+            Statement statement = con.createStatement();
 
             statement.executeUpdate("insert into screens_result(histology, behavior) values('"+result+"','"+intensity+"')");
 

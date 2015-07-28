@@ -6,8 +6,8 @@
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@ page import ="java.sql.*" %>
-<%@ include file="include/common.jsp" %>
-<%@ include file="include/database.jsp" %>
+<%@ include file="../Reception/include/common.jsp" %>
+<%@ include file="../Reception/include/database.jsp" %>
 <!doctype html>
 <html lang="en"><head>
     <meta charset="utf-8">
@@ -187,9 +187,8 @@ x=stmt1.executeUpdate("Delete from patient where PatientID="+PatientID);
             String fname = request.getParameter("fname");    
             String lname = request.getParameter("lname"); 
             Class.forName("com.mysql.jdbc.Driver");
-            Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/cancer","root", "");
-
-            Statement statement = connection.createStatement();
+            
+            Statement statement = con.createStatement();
 
             ResultSet resultset = statement.executeQuery("select * from patient where fname like '"+fname+"%' and lname like '"+lname+"%'");
 %>
@@ -260,7 +259,7 @@ x=stmt1.executeUpdate("Delete from patient where PatientID="+PatientID);
                 <hr>
 
                 <!-- Purchase a site license to remove this link from the footer: http://www.portnine.com/bootstrap-themes -->
-                <p class="pull-right" class="fa fa-github"><a href="http://github.com/oneklaw/App" target="_blank">Github</a> by <a href="http://ihsu.ac.ug" target="_blank">IHSU</a></p>
+                <p class="pull-right" class="fa fa-github"><a href="http://github.com/emmanuelstroem/ucp" target="_blank">Github</a> by <a href="http://ihsu.ac.ug" target="_blank">IHSU</a></p>
                 <p>© 2015 <a href="http://www.uci.or.ug/" target="_blank">UCI</a></p>
             </footer>
         </div>

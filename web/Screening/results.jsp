@@ -6,6 +6,8 @@
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@ page import ="java.sql.*" %>
+<%@ include file="../Reception/include/common.jsp" %>
+<%@ include file="../Reception/include/database.jsp" %>
 <!doctype html>
 <html lang="en"><head>
     <meta charset="utf-8">
@@ -161,9 +163,8 @@
             String fname = request.getParameter("fname");    
             String lname = request.getParameter("lname"); 
             Class.forName("com.mysql.jdbc.Driver");
-            Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/cancer","root", "");
-
-            Statement statement = connection.createStatement();
+            
+            Statement statement = con.createStatement();
 
             ResultSet resultset = statement.executeQuery("select * from patient where firstName like '"+fname+"%' and lname like '"+lname+"%'");
 %>

@@ -6,10 +6,20 @@
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@ page import ="java.sql.*" %>
+<%@ include file="../Reception/include/common.jsp" %>
+<%@ include file="../Reception/include/database.jsp" %>
+<%@page import=" java.util.Enumeration;" %>
+<%@page import=" java.util.*" %>
+
 <!doctype html>
+<%
+    String username = (String)session.getAttribute("User_Name");
+    String department = (String)session.getAttribute("Department");
+    int staffid = (Integer)session.getAttribute("staffid");
+%>
 <html lang="en"><head>
     <meta charset="utf-8">
-    <title>UCP Search Results</title>
+    <title>UCP: Registration</title>
     <meta content="IE=edge,chrome=1" http-equiv="X-UA-Compatible">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="">
@@ -101,19 +111,14 @@
           <ul id="main-menu" class="nav navbar-nav navbar-right">
             <li class="dropdown hidden-xs">
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                    <span class="glyphicon glyphicon-user padding-right-small" style="position:relative;top: 3px;"></span> Jack Smith
+                    <span class="glyphicon glyphicon-user padding-right-small" style="position:relative;top: 3px;"></span> <b><%=username%></b> (<%=department%>)
                     <i class="fa fa-caret-down"></i>
                 </a>
 
               <ul class="dropdown-menu">
                 <li><a href="./">My Account</a></li>
                 <li class="divider"></li>
-                <li class="dropdown-header">Admin Panel</li>
-                <li><a href="./">Users</a></li>
-                <li><a href="./">Security</a></li>
-                <li><a tabindex="-1" href="./">Payments</a></li>
-                <li class="divider"></li>
-                <li><a tabindex="-1" href="sign-in.html">Logout</a></li>
+                <li><a tabindex="-1" href="../logout.jsp">Logout</a></li>
               </ul>
             </li>
           </ul>
@@ -125,13 +130,12 @@
 
    <div class="sidebar-nav">
     <ul>
-    <li><a href="../Doctor/index.jsp" data-target=".dashboard-menu" class="nav-header"><i class="fa fa-fw fa-dashboard"></i> Dashboard</a></li>    
-    <li ><a href="index.jsp" class="nav-header"><span class="fa fa-search"></span> Search Patient</a></li>
-    <li ><a href="registerPatient.html" class="nav-header"><span class="fa fa-pencil"></span> Register Patient</a></li>
-    <li ><a href="triage.html" class="nav-header"><span class="fa fa-stethoscope"></span> Triage</a></li>
+    <li><a href="index.jsp" data-target=".dashboard-menu" class="nav-header"><i class="fa fa-fw fa-dashboard"></i> Dashboard</a></li>    
+    <li ><a href="searchPatient.jsp" class="nav-header"><span class="fa fa-search"></span> Search Patient</a></li>
+    <li ><a href="registerPatient.jsp" class="nav-header"><span class="fa fa-pencil"></span> Register Patient</a></li>
+    <li ><a href="triage.jsp" class="nav-header"><span class="fa fa-stethoscope"></span> Triage</a></li>
     <li ><a href="treatment.jsp" class="nav-header"><span class="fa fa-medkit"></span> Treatment</a></li>
-        <li ><a href="calendar.html" class="nav-header"><span class="fa fa-clock-o"></span> Appointments</a></li>
-    <li><a href="help.html" class="nav-header"><i class="fa fa-fw fa-question-circle"></i> Help</a></li>
+    <li ><a href="calendar.html" class="nav-header"><span class="fa fa-clock-o"></span> Appointments</a></li>
     
 
     </div>
@@ -140,10 +144,10 @@
     <div class="content">
         <div class="header">
             
-            <h1 class="page-title">Users</h1>
+            <h1 class="page-title">Registration</h1>
                     <ul class="breadcrumb">
             <li><a href="index.jsp">Home</a> </li>
-            <li class="active">Users</li>
+            <li class="active">Register</li>
         </ul>
 
         </div>
@@ -155,13 +159,7 @@
 </div>
         <div class="main-content">
             
-<div class="btn-toolbar list-toolbar">
-    <button class="btn btn-primary"><i class="fa fa-plus"></i> New User</button>
-    <button class="btn btn-default">Import</button>
-    <button class="btn btn-default">Export</button>
-  <div class="btn-group">
-  </div>
-</div>
+
          <table class="table">   
             <%  
             String fname = request.getParameter("fname");
@@ -171,7 +169,8 @@
             String birthplace = request.getParameter("birthplace");
             String DOB = request.getParameter("DOB");    
             String occupation = request.getParameter("occupation");
-            String tribe = request.getParameter("tribe");    
+            String tribe = request.getParameter("tribe");
+            String nationality = request.getParameter("nationality");    
             String district = request.getParameter("district");
             String region = request.getParameter("region");    
             String contact = request.getParameter("contact");
@@ -180,12 +179,13 @@
             String subcounty = request.getParameter("subcounty");    
             String parish= request.getParameter("parish");
             String email= request.getParameter("email");
+            
             Class.forName("com.mysql.jdbc.Driver");
-            Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/cancer","root", "");
+            
 
-            Statement statement = connection.createStatement();
+            Statement statement = con.createStatement();
 
-            statement.executeUpdate("insert into patient(fname, lname, othername, email, sex,birthplace,DOB,occupation,tribe,district,region,contact,village,county,subcounty,parish) values('"+fname+"','"+lname+"', '"+othername+"', '"+email+"', '"+sex+"','"+birthplace+"','"+DOB+"','"+occupation+"','"+tribe+"','"+district+"','"+region+"','"+contact+"','"+village+"','"+county+"','"+subcounty+"','"+parish+"')");
+            statement.executeUpdate("insert into patient(fname, lname, othername, email, sex,birthplace,DOB,occupation,tribe,district,region,contact,village,county,subcounty,parish, nationality) values('"+fname+"','"+lname+"', '"+othername+"', '"+email+"', '"+sex+"','"+birthplace+"','"+DOB+"','"+occupation+"','"+tribe+"','"+district+"','"+region+"','"+contact+"','"+village+"','"+county+"','"+subcounty+"','"+parish+"','"+nationality+"')");
 %>
 
 
@@ -216,7 +216,7 @@
                 <hr>
 
                 <!-- Purchase a site license to remove this link from the footer: http://www.portnine.com/bootstrap-themes -->
-                <p class="pull-right" class="fa fa-github"><a href="http://github.com/oneklaw/App" target="_blank">Github</a> by <a href="http://ihsu.ac.ug" target="_blank">IHSU</a></p>
+                <p class="pull-right" class="fa fa-github"><a href="http://github.com/emmanuelstroem/ucp" target="_blank">Github</a> by <a href="http://ihsu.ac.ug" target="_blank">IHSU</a></p>
                 <p>© 2015 <a href="http://www.uci.or.ug/" target="_blank">UCI</a></p>
             </footer>
         </div>

@@ -5,26 +5,57 @@
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
-<%@ page import ="java.sql.*" %>
+<%@page import ="java.sql.*" %>
+<%@include file="../Reception/include/common.jsp" %>
+<%@include file="../Reception/include/database.jsp" %>
+<%@page import=" java.util.Enumeration;" %>
+<%@page import=" java.util.*" %>
+<%
+    String username = (String)session.getAttribute("User_Name");
+    String department = (String)session.getAttribute("Department");
+    int staffid = (Integer)session.getAttribute("staffid");
+%>
 <!doctype html>
 <html lang="en"><head>
     <meta charset="utf-8">
-    <title>Bootstrap Admin</title>
+    <title>Results</title>
     <meta content="IE=edge,chrome=1" http-equiv="X-UA-Compatible">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="">
     <meta name="author" content="">
+    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+    <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
 
     <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,700' rel='stylesheet' type='text/css'>
-    <link rel="stylesheet" type="text/css" href="lib/bootstrap/css/bootstrap.css">
-    <link rel="stylesheet" href="lib/font-awesome/css/font-awesome.css">
+    <link rel="stylesheet" type="text/css" href="../lib/bootstrap/css/bootstrap.css">
+    <link rel="stylesheet" href="../lib/font-awesome/css/font-awesome.css">
 
     <script src="lib/jquery-1.11.1.min.js" type="text/javascript"></script>
+    <script src="//ajax.googleapis.com/ajax/libs/dojo/1.10.4/dojo/dojo.js" data-dojo-config="async: true"></script>
+    <script src="../Reception/lib/dojo.js" type="text/javascript"></script>
 
     
 
     <link rel="stylesheet" type="text/css" href="stylesheets/theme.css">
     <link rel="stylesheet" type="text/css" href="stylesheets/premium.css">
+    
+    <script type="text/javascript">
+        require(["dojox/charting/Chart", "dojox/charting/axis2d/Default", "dojox/charting/plot2d/StackedAreas", "dojox/charting/themes/Wetland" , "dojo/ready"],
+  function(Chart, Default, StackedAreas, Wetland, ready){
+    ready(function(){
+      var c = new Chart("chart3d");
+      c.addPlot("default", {type: StackedAreas, tension:3})
+        .addAxis("x", {fixLower: "major", fixUpper: "major"})
+        .addAxis("y", {vertical: true, fixLower: "major", fixUpper: "major", min: 0})
+        .setTheme(Wetland)
+        .addSeries("Series A", [1, 2, 0.5, 1.5, 1, 2.8, 0.4])
+        .addSeries("Series B", [2.6, 1.8, 2, 1, 1.4, 0.7, 2])
+        .addSeries("Series C", [6.3, 1.8, 3, 0.5, 4.4, 2.7, 2])
+        .render();
+    });
+});
+    </script>
 
 </head>
 <body class=" theme-blue">
@@ -101,7 +132,7 @@
           <ul id="main-menu" class="nav navbar-nav navbar-right">
             <li class="dropdown hidden-xs">
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                    <span class="glyphicon glyphicon-user padding-right-small" style="position:relative;top: 3px;"></span> Jack Smith
+                    <span class="glyphicon glyphicon-user padding-right-small" style="position:relative;top: 3px;"></span> <b><%=username%></b> (<%=department%>)
                     <i class="fa fa-caret-down"></i>
                 </a>
 
@@ -125,13 +156,10 @@
 
    <div class="sidebar-nav">
     <ul>
-    <li><a href="index.html" data-target=".dashboard-menu" class="nav-header"><i class="fa fa-fw fa-dashboard"></i> Dashboard</a></li>    
-    <li ><a href="index.html" class="nav-header"><span class="fa fa-search"></span> Search Patient</a></li>
-    <li ><a href="registerPatient.html" class="nav-header"><span class="fa fa-pencil"></span> Register Patient</a></li>
-    <li ><a href="triage.html" class="nav-header"><span class="fa fa-stethoscope"></span> Triage</a></li>
-    <li ><a href="treatment.html" class="nav-header"><span class="fa fa-medkit"></span> Treatmement</a></li>
-        <li ><a href="calendar.html" class="nav-header"><span class="fa fa-clock-o"></span> Appointments</a></li>
-    <li><a href="help.html" class="nav-header"><i class="fa fa-fw fa-question-circle"></i> Help</a></li>
+    <li><a href="index.jsp" data-target=".dashboard-menu" class="nav-header"><i class="fa fa-fw fa-dashboard"></i>Dashboard</a></li>    
+    <li ><a href="searchStaff.jsp" class="nav-header"><span class="fa fa-search"></span> Staff Members</a></li>
+    <li ><a href="reports.jsp" class="nav-header"><span class="fa fa-stethoscope"></span> Reports </a></li>
+    <li ><a href="treatment.html" class="nav-header"><span class="fa fa-medkit"></span> Statistics</a></li>
     
 
     </div>
@@ -140,54 +168,55 @@
     <div class="content">
         <div class="header">
             
-            <h1 class="page-title">Users</h1>
+            <h1 class="page-title">Report</h1>
                     <ul class="breadcrumb">
             <li><a href="index.html">Home</a> </li>
-            <li class="active">Users</li>
+            <li class="active">Reports</li>
         </ul>
 
         </div>
         <div class="main-content">
             
 <div class="btn-toolbar list-toolbar">
-    <button class="btn btn-primary"><i class="fa fa-plus"></i> New User</button>
-    <button class="btn btn-default">Import</button>
     <button class="btn btn-default">Export</button>
   <div class="btn-group">
   </div>
 </div>
          <table class="table">   
             <%  
-            String fname = request.getParameter("fname");    
-            String lname = request.getParameter("lname"); 
+            String gender = request.getParameter("gender");    
+            String finding = request.getParameter("finding");    
+            String nationality = request.getParameter("nationality"); 
+            
             Class.forName("com.mysql.jdbc.Driver");
-            Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/cancer","root", "");
+            
+            Statement statement = con.createStatement();
 
-            Statement statement = connection.createStatement();
-
-            ResultSet resultset = statement.executeQuery("select * from patient where firstName like '"+fname+"%' and lname like '"+lname+"%'");
+            ResultSet resultset = statement.executeQuery("select screens_result.*, patient.*, count(*)  from screens_result INNER JOIN patient ON screens_result.patientID=patient.patientID where patient.sex like '"+gender+"%' and screens_result.finding like '"+finding+"%'");
 %>
 
 
 <table class="table">
   <thead>
     <tr>
-      <th>#</th>
-      <th>First Name</th>
-      <th>Last Name</th>
-      <th>Sex</th>
+        
+      <th>Gender</th>
+      <th> Nationality</th>
+      <th>Finding</th>
+      <th>Total</th>
       <th style="width: 3.5em;"></th>
     </tr>
   </thead>
   <tbody>
   <%
             while(resultset.next()){ 
+                report=resultset.getInt("count(*)");
         %>
             <tr>
-      <td><%= resultset.getString(1) %></td>
-      <td><%= resultset.getString(2) %></td>
-      <td><%= resultset.getString(3) %></td>
-      <td><%= resultset.getString(4) %></td>
+      <td><%= gender%></td>
+      <td><%= nationality%></td>
+      <td><%= finding %></td>
+      <td><%=report%></td>
       <td>
           <a href="user.html"><i class="fa fa-pencil"></i></a>
           <a href="#myModal" role="button" data-toggle="modal"><i class="fa fa-trash-o"></i></a>
@@ -204,18 +233,10 @@
   
     
   </tbody>
-</table>
+</table
 
+<div id="chart3d" style="width: 500px; height: 500px;"></div>
 
-<ul class="pagination">
-  <li><a href="#">&laquo;</a></li>
-  <li><a href="#">1</a></li>
-  <li><a href="#">2</a></li>
-  <li><a href="#">3</a></li>
-  <li><a href="#">4</a></li>
-  <li><a href="#">5</a></li>
-  <li><a href="#">&raquo;</a></li>
-</ul>
 
 <div class="modal small fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
   <div class="modal-dialog">
@@ -240,7 +261,7 @@
                 <hr>
 
                 <!-- Purchase a site license to remove this link from the footer: http://www.portnine.com/bootstrap-themes -->
-                <p class="pull-right" class="fa fa-github"><a href="http://github.com/oneklaw/App" target="_blank">Github</a> by <a href="http://ihsu.ac.ug" target="_blank">IHSU</a></p>
+                <p class="pull-right" class="fa fa-github"><a href="http://github.com/emmanuelstroem/ucp" target="_blank">Github</a> by <a href="http://ihsu.ac.ug" target="_blank">IHSU</a></p>
                 <p>© 2015 <a href="http://www.uci.or.ug/" target="_blank">UCI</a></p>
             </footer>
         </div>

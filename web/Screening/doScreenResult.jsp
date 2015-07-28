@@ -198,6 +198,8 @@ ajax/libs/jquery/1.5/jquery.min.js"></script>
            
          String  cancerid =request.getParameter("cancerid");
          
+         String finding = request.getParameter("finding");
+         
          String primarysite = request.getParameter("primarysite");
          
          String histology = request.getParameter("histology");
@@ -238,7 +240,7 @@ ajax/libs/jquery/1.5/jquery.min.js"></script>
         // int PatientID=(Integer)session.getAttribute("PatientID");
  
         
-       x= stmt.executeUpdate("insert into screens_result(requestid, PatientID, staffid, cancerid, primarysite, histology, seqnum, behaviour, grade, laterality, diagconfirm, clinicalt, clinicaln, clinicalm, clinicalstage, pathologict, pathologicn, pathologicm, pathologicstage, comment) values ('"+requestid+"','"+pid+"','"+staff2+"','"+cancerid+"','"+primarysite+"','"+histology+"','"+seqnum+"','"+behaviour+"','"+grade+"','"+laterality+"','"+diagconfirm+"','"+clinicalt+"','"+clinicaln+"','"+clinicalm+"','"+clinicalstage+"','"+pathologict+"','"+pathologicn+"','"+pathologicm+"','"+pathologicstage+"','"+screeningcomment+"')");
+       x= stmt.executeUpdate("insert into screens_result(requestid, PatientID, staffid, cancerid, primarysite, histology, seqnum, behaviour, grade, laterality, diagconfirm, clinicalt, clinicaln, clinicalm, clinicalstage, pathologict, pathologicn, pathologicm, pathologicstage, comment, finding) values ('"+requestid+"','"+pid+"','"+staff2+"','"+cancerid+"','"+primarysite+"','"+histology+"','"+seqnum+"','"+behaviour+"','"+grade+"','"+laterality+"','"+diagconfirm+"','"+clinicalt+"','"+clinicaln+"','"+clinicalm+"','"+clinicalstage+"','"+pathologict+"','"+pathologicn+"','"+pathologicm+"','"+pathologicstage+"','"+screeningcomment+"','"+finding+"')");
         
        %>
        
@@ -273,7 +275,7 @@ ajax/libs/jquery/1.5/jquery.min.js"></script>
                 <hr>
 
                 <!-- Purchase a site license to remove this link from the footer: http://www.portnine.com/bootstrap-themes -->
-                <p class="pull-right" class="fa fa-github"><a href="http://github.com/oneklaw/App" target="_blank">Github</a> by <a href="http://ihsu.ac.ug" target="_blank">IHSU</a></p>
+                <p class="pull-right" class="fa fa-github"><a href="http://github.com/emmanuelstroem/ucp" target="_blank">Github</a> by <a href="http://ihsu.ac.ug" target="_blank">IHSU</a></p>
                 <p>© 2015 <a href="http://www.uci.or.ug/" target="_blank">UCI</a></p>
             </footer>
         </div>

@@ -8,6 +8,8 @@
 <%@page import="java.util.Enumeration"%>
 <%@page import="java.util.*" %>
 
+<%@ include file="include/common.jsp" %>
+<%@ include file="include/database.jsp" %>
 <%
     String username = (String)session.getAttribute("User_Name");
     String department = (String)session.getAttribute("Department");
@@ -200,6 +202,25 @@
         <input type="text" name="tribe" class="form-control">
         </div>
           <div>
+                        <label>Nationality:</label><br />
+                        <select name="NationalityBox" id="NationalityBox" onchange="getNationality()">
+
+                            <%
+                                rs2=stmt.executeQuery("select * from countries");
+                                
+                                    while(rs2.next()){
+
+                                    nationality=rs2.getString(3);
+                            %>
+                             <option type="hidden" name="nationality" class="form-control"><%=nationality%></option>
+                        
+                             <%
+                                    }
+                             %>
+                        </select>
+                        </div>
+                        <input type="text" name="nationality" id="nationality" class="form-control">
+          <div>
     <label>District:</label>
         <input type="text" name="district" class="form-control">
         </div>
@@ -268,7 +289,7 @@
                 <hr>
 
                 <!-- Purchase a site license to remove this link from the footer: http://www.portnine.com/bootstrap-themes -->
-                <p class="pull-right" class="fa fa-github"><a href="http://github.com/oneklaw/App" target="_blank">Github</a> by <a href="http://ihsu.ac.ug" target="_blank">IHSU</a></p>
+                <p class="pull-right" class="fa fa-github"><a href="http://github.com/emmanuelstroem/ucp" target="_blank">Github</a> by <a href="http://ihsu.ac.ug" target="_blank">IHSU</a></p>
                 <p>© 2015 <a href="http://www.uci.or.ug/" target="_blank">UCI</a></p>
             </footer>
         </div>

@@ -187,10 +187,8 @@ x=stmt1.executeUpdate("Delete from patient where PatientID="+PatientID);
             <%  
             String fname = request.getParameter("fname");    
             String lname = request.getParameter("lname"); 
-            Class.forName("com.mysql.jdbc.Driver");
-            Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/cancer","root", "");
-
-            Statement statement = connection.createStatement();
+          
+            Statement statement = con.createStatement();
 
             ResultSet resultset = statement.executeQuery("select * from patient where fname like '"+fname+"%' and lname like '"+lname+"%'");
 %>
@@ -199,10 +197,11 @@ x=stmt1.executeUpdate("Delete from patient where PatientID="+PatientID);
 <table class="table">
   <thead>
     <tr>
-      <th>#</th>
+      <th>ID</th>
       <th>First Name</th>
       <th>Last Name</th>
       <th>Sex</th>
+      <th>Date of Birth</th>
       <th style="width: 3.5em;"></th>
     </tr>
   </thead>
@@ -220,6 +219,7 @@ x=stmt1.executeUpdate("Delete from patient where PatientID="+PatientID);
       <td><%= resultset.getString(2) %></td>
       <td><%= resultset.getString(3) %></td>
       <td><%= resultset.getString(4) %></td>
+      <td><%= resultset.getString(6) %></td>
       <td>
           <a href="editPaitent.jsp?PatientID=<%=PatientID%>"><i class="fa fa-pencil"></i></a>
           <a href="#myModal" role="button" data-toggle="modal"><i class="fa fa-trash-o"></i></a>

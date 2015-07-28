@@ -5,6 +5,10 @@
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@ include file="include/common.jsp" %>
+<%@ include file="include/database.jsp" %>
+<%@page import=" java.util.Enumeration;" %>
+<%@page import=" java.util.*" %>
 <!DOCTYPE html>
 <%
     String username = (String)session.getAttribute("User_Name");
@@ -157,7 +161,6 @@
                 
                 Class.forName("com.mysql.jdbc.Driver");
                 
-    Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/cancer",  "root", "");
     Statement st = con.createStatement();
 
     int i = st.executeUpdate("insert  into triage(patientID, temperature, weight, height, bp, pulse, staffid) values('"+patientid+"', '"+temperature+"', '"+weight+"', '"+height+"', '"+bp+"', '"+pulse+"', '"+staffid+"')");
@@ -202,8 +205,8 @@
                 <hr>
 
                 <!-- Purchase a site license to remove this link from the footer: http://www.portnine.com/bootstrap-themes -->
-                <p class="pull-right">A <a href="http://www.portnine.com/bootstrap-themes" target="_blank">Free Bootstrap Theme</a> by <a href="http://www.portnine.com" target="_blank">Portnine</a></p>
-                <p>© 2014 <a href="http://www.portnine.com" target="_blank">Portnine</a></p>
+                <p class="pull-right" class="fa fa-github"><a href="http://github.com/oneklaw/App" target="_blank">Github</a> by <a href="http://ihsu.ac.ug" target="_blank">IHSU</a></p>
+                <p>© 2015 <a href="http://www.uci.or.ug/" target="_blank">UCI</a></p>
             </footer>
         </div>
     </div>

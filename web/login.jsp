@@ -15,14 +15,17 @@
     String username = request.getParameter("username");    
     String password = request.getParameter("password"); 
     String Department= request.getParameter("Department");
-    String staffname="", department="";
+    String staffname="", department="", passwd="";
     int staffid=0;
     String DptPharmacy = Department;
+    String pwd = password;
     Class.forName("com.mysql.jdbc.Driver");
     Connection con = DriverManager.getConnection("jdbc:mysql://us-cdbr-iron-east-02.cleardb.net/heroku_c79a07203b819b6?reconnect=true", "b7895ee3eb8ef0", "b2e4df22");
     Statement st = con.createStatement();
     ResultSet rs,rs1,rs3;
     rs = st.executeQuery("select * from staffs where User_Name='" + username + "' and pass_Word='" + password + "'");
+    
+    
    
     while (rs.next()){
         
@@ -32,55 +35,65 @@
         session.setAttribute("User_Name", staffname);
         session.setAttribute("staffid", staffid);
         session.setAttribute("Department", department);
+        session.setAttribute("pass_Word", passwd);
     
     
     }
-    
+    if (username != staffname){
+        out.println("Please enter correct Username !! <a href='index.jsp'>try again</a>");
+       }else{
+        if(password != passwd){
+            out.println("Please enter correct Password !! <a href='index.jsp'>try again</a>");
+
+        }else {
     //String user_name = (String)session.getAttribute("User_Name");
     
-    if (staffname == null) {
-        out.println("NOT LOGGED IN NOW!! <a href='index.jsp'>try again</a>");
-    }else{
-        rs1 = st.executeQuery("select User_Name, Department, staffid from staffs where User_Name='" + username + "' and Department='" + Department + "'");
-       
-        if (rs1.next()) {
-            
-            
-            
-            rs3 = st.executeQuery("select * from staffs where User_Name='" + username + "' and Department='" + Department + "'");
-            
-            
-           //session.setAttribute("Department", Department);
-           
-           
-        //session.setAttribute("Departmet", Department);
-        // session.setAttribute("Department", Department);
-        //out.println("welcome " + userid);
-        //out.println("<a href='logout.jsp'>Log out</a>");
-    // if ( ((String)pageContext.findAttribute("Department")).equals("Pharmacy") ){
-        
-        //response.sendRedirect("test.jsp");
-           
-           
-           
-           
-           
-        if(DptPharmacy==Department){
-            
-            response.sendRedirect(Department);
-            
-        }else{
-            out.println("Department DOESN'T exist..HAHA");
-        
+            if (staffname == null) {
+                out.println("NOT LOGGED IN NOW!! <a href='index.jsp'>try again</a>");
+            }else{
+                rs1 = st.executeQuery("select User_Name, Department, staffid from staffs where User_Name='" + username + "' and Department='" + Department + "'");
+
+
+                if (rs1.next()) {
+
+
+
+                    rs3 = st.executeQuery("select * from staffs where User_Name='" + username + "' and Department='" + Department + "'");
+
+
+                   //session.setAttribute("Department", Department);
+
+
+                //session.setAttribute("Departmet", Department);
+                // session.setAttribute("Department", Department);
+                //out.println("welcome " + userid);
+                //out.println("<a href='logout.jsp'>Log out</a>");
+            // if ( ((String)pageContext.findAttribute("Department")).equals("Pharmacy") ){
+
+                //response.sendRedirect("test.jsp");
+
+
+
+
+
+                if(DptPharmacy==Department){
+
+                    response.sendRedirect(Department);
+
+                }else{
+                    out.println("Department DOESN'T exist..HAHA");
+
+                }
+
+
+             //}
+            }else{
+                out.println("Please Select your TRUE Department");
+                }
+
+            } 
         }
-        
-        
-     //}
-    }else{
-        out.println("Please Select your TRUE Department");
     }
-        
-    } 
 %>
         </p>
         </div>

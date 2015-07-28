@@ -324,14 +324,14 @@ while(rs.next())
             <input type="hidden" name="PatientID" value="<%=pid%>" >
             <input type="hidden" name="staffid" value="<%=staffid%>" >
         <div class="form-group">
-            <label>Temp (c):</label><input type="text" name="temperature" class="form-control">
+            <label>Temp (c):</label><input type="number" name="temperature" class="form-control">
         </div>
         <div class="form-group">
-            <label>Weight (kg): </label><input type="text" name="weight" class="form-control">
+            <label>Weight (kg): </label><input type="number" name="weight" class="form-control">
             
         </div>
         <div class="form-group">
-            <label>Height(cm): </label><input type="text" name="height" class="form-control">
+            <label>Height(cm): </label><input type="number" name="height" class="form-control">
             
         </div>
         <div class="form-group">
@@ -430,7 +430,7 @@ while(rs.next())
                 <hr>
 
                 <!-- Purchase a site license to remove this link from the footer: http://www.portnine.com/bootstrap-themes -->
-                <p class="pull-right" class="fa fa-github"><a href="http://github.com/oneklaw/App" target="_blank">Github</a> by <a href="http://ihsu.ac.ug" target="_blank">IHSU</a></p>
+                <p class="pull-right" class="fa fa-github"><a href="http://github.com/emmanuelstroem/ucp" target="_blank">Github</a> by <a href="http://ihsu.ac.ug" target="_blank">IHSU</a></p>
                 <p>© 2015 <a href="http://www.uci.or.ug/" target="_blank">UCI</a></p>
             </footer>
         </div>
@@ -447,11 +447,5 @@ while(rs.next())
     
   
 </body>
-
-
-
-
-
-
 
 </html>

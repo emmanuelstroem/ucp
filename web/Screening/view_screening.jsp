@@ -68,6 +68,16 @@ $('#formbox').slideUp('fast');
 
 
    
+        function getFinding(){
+                 var FindingBox = document.getElementById('FindingBox');
+
+                /* selected value of dropdown */
+                var selectedFinding = FindingBox.options[FindingBox.selectedIndex].value;
+
+                /* selected value set to input field */
+              document.getElementById('finding').value = selectedFinding; 
+        }
+        
         
         function getCancerID(){
                  var selectBox = document.getElementById('selectBox');
@@ -588,11 +598,14 @@ while(rs.next())
             
          <div class="form-group">
             <label>Finding: </label> 
-            <select name="FindingBox" id="PrimarySiteBox" onchange="getFinding()" >
-                <option name="cancer" value="1"> <b>Positive</b></option>
-                <option name="cancer" value="0"> <b></b>Negative</option>
+            <select name="FindingBox" id="FindingBox" onchange="getFinding()" >
+                <option name="cancer"> <b>Select a Finding...</b></option>
+                <option name="cancer" value="Positive"> <b>Cancer Seen</b></option>
+                <option name="cancer" value="Negative"> <b></b>Cancer Absent</option>
             </select>
         </div>
+        <input type="hidden" name="finding" id="finding" class="form-control">
+        
             
             
         <div class="form-group">
@@ -616,7 +629,7 @@ while(rs.next())
         <% } %>
         </select>
         </div>
-        <input type="text" name="primarysite" id="primarysite" class="form-control">
+        <input type="hidden" name="primarysite" id="primarysite" class="form-control">
         <div class="form-group">
             <label>Histology:</label>
             <select name="HistologyBox" id="HistologyBox" onchange="getHistology()" >
@@ -949,7 +962,7 @@ while(rs.next())
                 <hr>
 
                 <!-- Purchase a site license to remove this link from the footer: http://www.portnine.com/bootstrap-themes -->
-                <p class="pull-right" class="fa fa-github"><a href="http://github.com/oneklaw/App" target="_blank">Github</a> by <a href="http://ihsu.ac.ug" target="_blank">IHSU</a></p>
+                <p class="pull-right" class="fa fa-github"><a href="http://github.com/emmanuelstroem/ucp" target="_blank">Github</a> by <a href="http://ihsu.ac.ug" target="_blank">IHSU</a></p>
                 <p>© 2015 <a href="http://www.uci.or.ug/" target="_blank">UCI</a></p>
             </footer>
         </div>
