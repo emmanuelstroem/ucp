@@ -39,9 +39,7 @@
     
     
     }
-    if (username != staffname){
-        out.println("Please enter correct Username !! <a href='index.jsp'>try again</a>");
-       }else{
+    
         if(password != passwd){
             out.println("Please enter correct Password !! <a href='index.jsp'>try again</a>");
 
@@ -93,7 +91,7 @@
 
             } 
         }
-    }
+    
 %>
         </p>
         </div>
