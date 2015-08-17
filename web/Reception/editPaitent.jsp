@@ -6,8 +6,8 @@
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 
-<%@ include file="../Reception/include/common.jsp" %>
-<%@ include file="../Reception/include/database.jsp" %>
+<%@include file="../Reception/include/common.jsp" %>
+<%@include file="../Reception/include/database.jsp" %>
 <%@page import=" java.util.Enumeration;" %>
 <%@page import=" java.util.*" %>
 
@@ -18,7 +18,7 @@
 %>
 <!doctype html>
 <html lang="en">
-    <head><meta charset="utf-8">
+  <head><meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
@@ -67,7 +67,7 @@ $('#formbox').slideUp('fast');
 });
 </script>
 <!-- ***************************************************** -->
-         <link rel="shortcut icon" href="../assets/ico/favicon.ico">
+    <link rel="shortcut icon" href="../assets/ico/favicon.ico">
     <link rel="apple-touch-icon-precomposed" sizes="144x144" href="../assets/ico/apple-touch-icon-144-precomposed.png">
     <link rel="apple-touch-icon-precomposed" sizes="114x114" href="../assets/ico/apple-touch-icon-114-precomposed.png">
     <link rel="apple-touch-icon-precomposed" sizes="72x72" href="../assets/ico/apple-touch-icon-72-precomposed.png">

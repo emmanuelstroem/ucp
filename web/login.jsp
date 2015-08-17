@@ -40,10 +40,7 @@
     
     }
     
-        if(password != passwd){
-            out.println("Please enter correct Password !! <a href='index.jsp'>try again</a>");
-
-        }else {
+    
     //String user_name = (String)session.getAttribute("User_Name");
     
             if (staffname == null) {
@@ -90,7 +87,6 @@
                 }
 
             } 
-        }
     
 %>
         </p>

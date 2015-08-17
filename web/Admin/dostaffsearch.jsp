@@ -215,7 +215,7 @@ x=stmt1.executeUpdate("Delete from patient where PatientID="+PatientID+"'");
   </thead>
   <tbody>
   <% int icount=0;
-    rs=stmt.executeQuery("select * from staffs where first_Name like '"+fname+"%' and last_name like '"+lname+"%'");
+    rs=stmt.executeQuery("select * from staffs where first_Name like '"+fname+"%' and last_name like '"+lname+"%' ORDER BY Department");
     
 
 while(rs.next())
