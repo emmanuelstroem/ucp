@@ -6,7 +6,7 @@
 Connection con=DriverManager.getConnection("jdbc:odbc:rest","root","");*/
 
 Class.forName("com.mysql.jdbc.Driver");
-Connection con=DriverManager.getConnection("jdbc:mysql://us-cdbr-iron-east-02.cleardb.net/heroku_c79a07203b819b6?reconnect=true", "b7895ee3eb8ef0", "b2e4df22");
+Connection con=DriverManager.getConnection("jdbc:mysql://localhost/cancer", "root","");
 
 Statement stmt=con.createStatement();
 Statement stmt1=con.createStatement();

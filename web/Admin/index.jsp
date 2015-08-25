@@ -14,302 +14,322 @@
     String department = (String)session.getAttribute("Department");
 %>
 
-<!doctype html>
-<html lang="en"><head>
-    <meta charset="utf-8">
-    <title>Administrator Dashboard</title>
-    <meta content="IE=edge,chrome=1" http-equiv="X-UA-Compatible">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="">
-    <meta name="author" content="">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
-    <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
-
-    <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,700' rel='stylesheet' type='text/css'>
-    <link rel="stylesheet" type="text/css" href="lib/bootstrap/css/bootstrap.css">
-    <link rel="stylesheet" href="lib/font-awesome/css/font-awesome.css">
-
-    <script src="lib/jquery-1.11.1.min.js" type="text/javascript"></script>
-
-        <script src="lib/jQuery-Knob/js/jquery.knob.js" type="text/javascript"></script>
-    <script type="text/javascript">
-        $(function() {
-            $(".knob").knob();
-        });
-    </script>
-
-
-    <link rel="stylesheet" type="text/css" href="stylesheets/theme.css">
-    <link rel="stylesheet" type="text/css" href="stylesheets/premium.css">
-
-</head>
-<body class=" theme-blue">
-
-    <!-- Demo page code -->
-
-    <script type="text/javascript">
-        $(function() {
-            var match = document.cookie.match(new RegExp('color=([^;]+)'));
-            if(match) var color = match[1];
-            if(color) {
-                $('body').removeClass(function (index, css) {
-                    return (css.match (/\btheme-\S+/g) || []).join(' ')
-                })
-                $('body').addClass('theme-' + color);
-            }
-
-            $('[data-popover="true"]').popover({html: true});
-            
-        });
-    </script>
-    <style type="text/css">
-        #line-chart {
-            height:300px;
-            width:800px;
-            margin: 0px auto;
-            margin-top: 1em;
-        }
-        .navbar-default .navbar-brand, .navbar-default .navbar-brand:hover { 
-            color: #fff;
-        }
-        #inner {
-    width: 50%;
-    margin: 0 auto;
-}
-    </style>
-
-    <script type="text/javascript">
-        $(function() {
-            var uls = $('.sidebar-nav > ul > *').clone();
-            uls.addClass('visible-xs');
-            $('#main-menu').append(uls.clone());
-        });
-    </script>
-
-    <!-- Le HTML5 shim, for IE6-8 support of HTML5 elements -->
-    <!--[if lt IE 9]>
-      <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
-    <![endif]-->
-
-    <!-- Le fav and touch icons -->
-    <link rel="shortcut icon" href="../assets/ico/favicon.ico">
-    <link rel="apple-touch-icon-precomposed" sizes="144x144" href="../assets/ico/apple-touch-icon-144-precomposed.png">
-    <link rel="apple-touch-icon-precomposed" sizes="114x114" href="../assets/ico/apple-touch-icon-114-precomposed.png">
-    <link rel="apple-touch-icon-precomposed" sizes="72x72" href="../assets/ico/apple-touch-icon-72-precomposed.png">
-    <link rel="apple-touch-icon-precomposed" href="../assets/ico/apple-touch-icon-57-precomposed.png">
-  
-
-  <!--[if lt IE 7 ]> <body class="ie ie6"> <![endif]-->
-  <!--[if IE 7 ]> <body class="ie ie7 "> <![endif]-->
-  <!--[if IE 8 ]> <body class="ie ie8 "> <![endif]-->
-  <!--[if IE 9 ]> <body class="ie ie9 "> <![endif]-->
-  <!--[if (gt IE 9)|!(IE)]><!--> 
-   
-  <!--<![endif]-->
-
-    <div class="navbar navbar-default" role="navigation">
-        <div class="navbar-header">
-          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target=".navbar-collapse">
-            <span class="sr-only">Toggle navigation</span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-          </button>
-          <a class="" href="index.jsp"><span class="navbar-brand"><span class="fa fa-hospital-o"></span> Uganda Cancer Portal</span></a></div>
-
-        <div class="navbar-collapse collapse" style="height: 1px;">
-          <ul id="main-menu" class="nav navbar-nav navbar-right">
-            <li class="dropdown hidden-xs">
-                <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                    <span class="glyphicon glyphicon-user padding-right-small" style="position:relative;top: 3px;"></span><%=username%> (<%=department%>)
-                    <i class="fa fa-caret-down"></i>
-                </a>
-
-              <ul class="dropdown-menu">                
-                
-                <li><a tabindex="-1" href="../logout.jsp">Logout</a></li>
-              </ul>
-            </li>
-          </ul>
-
-        </div>
-      </div>
-    </div>
-    
-
-    <div class="sidebar-nav">
-    <ul>
-    <li><a href="index.jsp" data-target=".dashboard-menu" class="nav-header"><i class="fa fa-fw fa-dashboard"></i>Dashboard</a></li>    
-    <li ><a href="searchStaff.jsp" class="nav-header"><span class="fa fa-search"></span> Staff Members</a></li>
-    <li ><a href="reports.jsp" class="nav-header"><span class="fa fa-stethoscope"></span> Reports </a></li>
-    <li ><a href="treatment.html" class="nav-header"><span class="fa fa-medkit"></span> Statistics</a></li>
-    
-    </div>
-
-    <div class="content">
-        <div class="header">
-        
-
-            <h1 class="page-title">Admin's Dashboard</h1>
-                    <ul class="breadcrumb">
-            <li><a href="index.jsp">Home</a> </li>
-            <li class="active">Dashboard</li>
-        </ul>
-              
-
-        </div>
-         <div class="main-content">
-            
-            <div class="row" style="text-align: center;">
-                    <div class="pull-left unstyled col-sm-4 col-md-4">
-                        <p><button class="btn btn-default" data-toggle="modal" data-target="#register" style="width: 150px;">Generate Report</button></p>
-                        <p><a href="searchPatient.jsp" class="btn btn-default" style="width: 150px;">Search Patients</a></p>
-                        
-                    </div>
-                </div>
-            
-            
-            
-            
-            <div class="modal small fade" id="register" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-                <div class="modal-dialog">
-                  <div class="modal-content">
-                      <h4 class="alert" align="center">Select Criteria/h4>
-
-                    <div class="modal-body">
-                     <div id="myTabContent" class="tab-content">
-                      <div class="tab-pane active in" id="home">
-                          <form action="doregisterPatient.jsp" method="post" name="registration" >
-                          
-                        <div class="form-group">
-                            <label>First Name:</label>
-                        <input type="text" name="fname" class="form-control">
-                        </div>
-                        <div class="form-group">
-                        <label>Last Name</label>
-                        <input type="text" name="lname" class="form-control">
-                        </div>
-                        <div class="form-group">
-                        <label>Other name</label>
-                        <input type="text" name="othername" class="form-control">
-                        </div>
-                        <div class="form-group">
-                        <label>Email</label>
-                        <input type="email" name="email" class="form-control">
-                        </div>
-                          <div class="form-group">
-                            <label>Sex:</label><br />
-                            <input type="radio" name="sex" value="Male"> Male<br>
-                            <input type="radio" name="sex" value="Female"> Female
-                            </div>
-                            <div class="form-group">            
-                        <label>Birth Place:</label>
-                        <input type="text" name="birthplace" class="form-control" data-provide="dob">
-                        </div>
-                          <div>
-                            <label>Date Of Bith:</label>
-                            
-                        <input type="text" name="DOB" id="datepicker" class="form-control dob">
-                        </div>
-                          <div>
-                          <label>Occupation:</label>
-                        <input type="text" name="occupation" class="form-control">
-                        </div>
-                          <div>
-                        <label>Tribe:</label>
-                        <input type="text" name="tribe" class="form-control">
-                        </div>
-                        <div>
-                        <label>Nationality:</label><br />
-                        <select name="NationalityBox" id="NationalityBox" onchange="getNationality()">
-
-                            <%
-                                rs2=stmt.executeQuery("select * from countries");
-                                
-                                    while(rs2.next()){
-
-                                    nationality=rs2.getString(3);
-                            %>
-                             <option type="hidden" name="nationality" class="form-control"><%=nationality%></option>
-                        
-                             <%
-                                    }
-                             %>
-                        </select>
-                        </div>
-                        <input type="text" name="nationality" id="nationality" class="form-control">
-                         <div>
-                        <label>District:</label>
-                        <input type="text" name="district" class="form-control">
-                        </div>
-                          <div>
-                        <label>Region:</label>
-                        <input type="text" name="region" class="form-control">
-                        </div>
-                            <div>
-                            <label>Contact:</label>
-                        <input type="text" name="contact" class="form-control">
-                        </div>
-                            <div>
-                        <label>Village:</label>
-                        <input type="text" name="village" class="form-control">
-                        </div>
-                            <div>
-                        <label>County:</label>
-                        <input type="text" name="county" class="form-control">
-                        </div>
-                            <div>
-                        <label>Sub-County:</label>
-                        <input type="text" name="subcounty" class="form-control">
-                        </div>
-                            <div>
-                        <label>Parish:</label>
-                        <input type="text" name="parish" class="form-control">
-                        </div>
-                        <div>
-                        <br />
-                        </div>
-                        <br />
-
-                        <div class="btn-toolbar list-toolbar">
-
-                            <a href="#register" data-dismiss="modal" class="btn btn-danger">Cancel</a>
-                            <button type="submit" class="btn btn-save"><i class="fa fa-save"></i> Save</button>
-                        </div>
-                      </form>
-                    </div>
-
-                    <div class="tab-pane fade" id="profile">
-
-                    </div>
-                   </div>
-                </div>
-        
-              </div>
-            </div> 
-        </div> 
-                        
-            <footer>
-                <hr>
-
-                <!-- Purchase a site license to remove this link from the footer: http://www.portnine.com/bootstrap-themes -->
-                <p class="pull-right" class="fa fa-github"><a href="http://github.com/emmanuelstroem/ucp" target="_blank">Github</a> by <a href="http://ihsu.ac.ug" target="_blank">IHSU</a></p>
-                <p>© 2015 <a href="http://www.uci.or.ug/" target="_blank">UCI</a></p>
-            </footer>
-        </div>
-    </div>
-
-
-    <script src="lib/bootstrap/js/bootstrap.js"></script>
-    <script type="text/javascript">
-        $("[rel=tooltip]").tooltip();
-        $(function() {
-            $('.demo-cancel-click').click(function(){return false;});
-        });
-    </script>
-    
-  
-</body></html>
-
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+		<title>Admin Dashboard</title>
+		<meta name="description" content="description">
+		<meta name="author" content="DevOOPS">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<link href="plugins/bootstrap/bootstrap.css" rel="stylesheet">
+		<link href="plugins/jquery-ui/jquery-ui.min.css" rel="stylesheet">
+		<link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
+		<link href='http://fonts.googleapis.com/css?family=Righteous' rel='stylesheet' type='text/css'>
+		<link href="plugins/fancybox/jquery.fancybox.css" rel="stylesheet">
+		<link href="plugins/fullcalendar/fullcalendar.css" rel="stylesheet">
+		<link href="plugins/xcharts/xcharts.min.css" rel="stylesheet">
+		<link href="plugins/select2/select2.css" rel="stylesheet">
+		<link href="plugins/justified-gallery/justifiedGallery.css" rel="stylesheet">
+		<link href="css/style_v1.css" rel="stylesheet">
+		<link href="plugins/chartist/chartist.min.css" rel="stylesheet">
+		<!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+		<!--[if lt IE 9]>
+				<script src="http://getbootstrap.com/docs-assets/js/html5shiv.js"></script>
+				<script src="http://getbootstrap.com/docs-assets/js/respond.min.js"></script>
+		<![endif]-->
+	</head>
+<body>
+<!--Start Header-->
+<div id="screensaver">
+	<canvas id="canvas"></canvas>
+	<i class="fa fa-lock" id="screen_unlock"></i>
+</div>
+<div id="modalbox">
+	<div class="devoops-modal">
+		<div class="devoops-modal-header">
+			<div class="modal-header-name">
+				<span>Basic table</span>
+			</div>
+			<div class="box-icons">
+				<a class="close-link">
+					<i class="fa fa-times"></i>
+				</a>
+			</div>
+		</div>
+		<div class="devoops-modal-inner">
+		</div>
+		<div class="devoops-modal-bottom">
+		</div>
+	</div>
+</div>
+<header class="navbar">
+	<div class="container-fluid expanded-panel">
+		<div class="row">
+			<div id="logo" class="col-xs-12 col-sm-2">
+				<a href="index.jsp">Data Dashboard</a>
+			</div>
+			<div id="top-panel" class="col-xs-12 col-sm-10">
+				<div class="row">
+					<div class="col-xs-8 col-sm-4">
+						<div id="search">
+							<input type="text" placeholder="search"/>
+							<i class="fa fa-search"></i>
+						</div>
+					</div>
+					<div class="col-xs-4 col-sm-8 top-panel-right">
+						
+						<a href="index.jsp" class="style2"></a>
+						<ul class="nav navbar-nav pull-right panel-menu">
+							<li class="hidden-xs">
+								<a href="index.jsp" class="modal-link">
+									<i class="fa fa-bell"></i>
+									<span class="badge">7</span>
+								</a>
+							</li>
+							<li class="hidden-xs">
+								<a class="ajax-link" href="ajax/calendar.html">
+									<i class="fa fa-calendar"></i>
+									<span class="badge">7</span>
+								</a>
+							</li>
+							<li class="hidden-xs">
+								<a href="ajax/page_messages.html" class="ajax-link">
+									<i class="fa fa-envelope"></i>
+									<span class="badge">7</span>
+								</a>
+							</li>
+							<li class="dropdown">
+								<a href="#" class="dropdown-toggle account" data-toggle="dropdown">
+									
+									<i class="fa fa-angle-down pull-right"></i>
+									<div class="user-mini pull-right">
+										<span class="welcome">Welcome,</span>
+										<span><%=username%> (<%=department%>)</span>
+									</div>
+								</a>
+								<ul class="dropdown-menu">
+									<li>
+										<a href="#">
+											<i class="fa fa-user"></i>
+											<span>Profile</span>
+										</a>
+									</li>
+									<li>
+										<a href="ajax/page_messages.html" class="ajax-link">
+											<i class="fa fa-envelope"></i>
+											<span>Messages</span>
+										</a>
+									</li>
+									<li>
+										<a href="ajax/gallery_simple.html" class="ajax-link">
+											<i class="fa fa-picture-o"></i>
+											<span>Albums</span>
+										</a>
+									</li>
+									<li>
+										<a href="ajax/calendar.html" class="ajax-link">
+											<i class="fa fa-tasks"></i>
+											<span>Tasks</span>
+										</a>
+									</li>
+									<li>
+										<a href="#">
+											<i class="fa fa-cog"></i>
+											<span>Settings</span>
+										</a>
+									</li>
+									<li>
+                                                                            <a href="../logout.jsp">
+											<i class="fa fa-power-off"></i>
+											<span>Logout</span>
+										</a>
+									</li>
+								</ul>
+							</li>
+						</ul>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</header>
+<!--End Header-->
+<!--Start Container-->
+<div id="main" class="container-fluid">
+	<div class="row">
+		<div id="sidebar-left" class="col-xs-2 col-sm-2">
+			<ul class="nav main-menu">
+				<li>
+					<a href="ajax/dashboard.html" class="active ajax-link">
+						<i class="fa fa-dashboard"></i>
+						<span class="hidden-xs">Dashboard</span>
+					</a>
+				</li>
+				<li class="dropdown">
+					<a href="#" class="dropdown-toggle">
+						<i class="fa fa-bar-chart-o"></i>
+						<span class="hidden-xs">Report Charts</span>
+					</a>
+					<ul class="dropdown-menu">
+						<li><a class="ajax-link" href="ajax/charts_xcharts.html">xCharts</a></li>
+						<li><a class="ajax-link" href="ajax/charts_flot.html">Flot Charts</a></li>
+						<li><a class="ajax-link" href="ajax/charts_google.html">Google Charts</a></li>
+						<li><a class="ajax-link" href="ajax/charts_morris.html">Morris Charts</a></li>
+						<li><a class="ajax-link" href="ajax/charts_amcharts.html">AmCharts</a></li>
+						<li><a class="ajax-link" href="ajax/charts_chartist.html">Chartist</a></li>
+						<li><a class="ajax-link" href="ajax/charts_coindesk.html">CoinDesk realtime</a></li>
+					</ul>
+				</li>
+				<li class="dropdown">
+					<a href="#" class="dropdown-toggle">
+						<i class="fa fa-table"></i>
+						 <span class="hidden-xs">Tables</span>
+					</a>
+					<ul class="dropdown-menu">
+						<li><a class="ajax-link" href="ajax/tables_simple.html">Simple Tables</a></li>
+						<li><a class="ajax-link" href="ajax/tables_datatables.html">Data Tables</a></li>
+						<li><a class="ajax-link" href="ajax/tables_beauty.html">Beauty Tables</a></li>
+					</ul>
+				</li>
+				<li class="dropdown">
+					<a href="#" class="dropdown-toggle">
+						<i class="fa fa-pencil-square-o"></i>
+						 <span class="hidden-xs">Forms</span>
+					</a>
+					<ul class="dropdown-menu">
+						<li><a class="ajax-link" href="ajax/forms_elements.html">Elements</a></li>
+						<li><a class="ajax-link" href="ajax/forms_layouts.html">Layouts</a></li>
+						<li><a class="ajax-link" href="ajax/forms_file_uploader.html">File Uploader</a></li>
+					</ul>
+				</li>
+				
+				<li class="dropdown">
+					<a href="#" class="dropdown-toggle">
+						<i class="fa fa-list"></i>
+						 <span class="hidden-xs">Pages</span>
+					</a>
+					<ul class="dropdown-menu">
+						<li><a href="ajax/page_login_v1.html">Login</a></li>
+						<li><a href="ajax/page_register_v1.html">Register</a></li>
+						<li><a id="locked-screen" class="submenu" href="ajax/page_locked.html">Locked Screen</a></li>
+						<li><a class="ajax-link" href="ajax/page_contacts.html">Contacts</a></li>
+						<li><a class="ajax-link" href="ajax/page_feed.html">Feed</a></li>
+						<li><a class="ajax-link add-full" href="ajax/page_messages.html">Messages</a></li>
+						<li><a class="ajax-link" href="ajax/page_pricing.html">Pricing</a></li>
+						<li><a class="ajax-link" href="ajax/page_product.html">Product</a></li>
+						<li><a class="ajax-link" href="ajax/page_invoice.html">Invoice</a></li>
+						<li><a class="ajax-link" href="ajax/page_search.html">Search Results</a></li>
+						<li><a class="ajax-link" href="ajax/page_404.html">Error 404</a></li>
+						<li><a href="ajax/page_500_v1.html">Error 500</a></li>
+					</ul>
+				</li>
+				<li class="dropdown">
+					<a href="#" class="dropdown-toggle">
+						<i class="fa fa-map-marker"></i>
+						<span class="hidden-xs">Maps</span>
+					</a>
+					<ul class="dropdown-menu">
+						<li><a class="ajax-link" href="ajax/maps.html">OpenStreetMap</a></li>
+						<li><a class="ajax-link" href="ajax/map_fullscreen.html">Fullscreen map</a></li>
+						<li><a class="ajax-link" href="ajax/map_leaflet.html">Leaflet</a></li>
+					</ul>
+				</li>
+				
+				
+				 <li>
+					<a class="ajax-link" href="ajax/calendar.html">
+						 <i class="fa fa-calendar"></i>
+						 <span class="hidden-xs">Calendar</span>
+					</a>
+				 </li>
+				<li class="dropdown">
+					<a href="#" class="dropdown-toggle">
+						<i class="fa fa-picture-o"></i>
+						 <span class="hidden-xs">Multilevel menu</span>
+					</a>
+					<ul class="dropdown-menu">
+						<li><a href="#">First level menu</a></li>
+						<li><a href="#">First level menu</a></li>
+						<li class="dropdown">
+							<a href="#" class="dropdown-toggle">
+								<i class="fa fa-plus-square"></i>
+								<span class="hidden-xs">Second level menu group</span>
+							</a>
+							<ul class="dropdown-menu">
+								<li><a href="#">Second level menu</a></li>
+								<li><a href="#">Second level menu</a></li>
+								<li class="dropdown">
+									<a href="#" class="dropdown-toggle">
+										<i class="fa fa-plus-square"></i>
+										<span class="hidden-xs">Three level menu group</span>
+									</a>
+									<ul class="dropdown-menu">
+										<li><a href="#">Three level menu</a></li>
+										<li><a href="#">Three level menu</a></li>
+										<li class="dropdown">
+											<a href="#" class="dropdown-toggle">
+												<i class="fa fa-plus-square"></i>
+												<span class="hidden-xs">Four level menu group</span>
+											</a>
+											<ul class="dropdown-menu">
+												<li><a href="#">Four level menu</a></li>
+												<li><a href="#">Four level menu</a></li>
+												<li class="dropdown">
+													<a href="#" class="dropdown-toggle">
+														<i class="fa fa-plus-square"></i>
+														<span class="hidden-xs">Five level menu group</span>
+													</a>
+													<ul class="dropdown-menu">
+														<li><a href="#">Five level menu</a></li>
+														<li><a href="#">Five level menu</a></li>
+														<li class="dropdown">
+															<a href="#" class="dropdown-toggle">
+																<i class="fa fa-plus-square"></i>
+																<span class="hidden-xs">Six level menu group</span>
+															</a>
+															<ul class="dropdown-menu">
+																<li><a href="#">Six level menu</a></li>
+																<li><a href="#">Six level menu</a></li>
+															</ul>
+														</li>
+													</ul>
+												</li>
+											</ul>
+										</li>
+										<li><a href="#">Three level menu</a></li>
+									</ul>
+								</li>
+							</ul>
+						</li>
+					</ul>
+				</li>
+			</ul>
+		</div>
+		<!--Start Content-->
+		<div id="content" class="col-xs-12 col-sm-10">
+			<div id="about">
+				
+			</div>
+			<div class="preloader">
+				
+			</div>
+			<div id="ajax-content"></div>
+		</div>
+		<!--End Content-->
+	</div>
+</div>
+<!--End Container-->
+<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+<!--<script src="http://code.jquery.com/jquery.js"></script>-->
+<script src="plugins/jquery/jquery.min.js"></script>
+<script src="plugins/jquery-ui/jquery-ui.min.js"></script>
+<!-- Include all compiled plugins (below), or include individual files as needed -->
+<script src="plugins/bootstrap/bootstrap.min.js"></script>
+<script src="plugins/justified-gallery/jquery.justifiedGallery.min.js"></script>
+<script src="plugins/tinymce/tinymce.min.js"></script>
+<script src="plugins/tinymce/jquery.tinymce.min.js"></script>
+<!-- All functions for this theme + document.ready processing -->
+<script src="js/devoops.js"></script>
+</body>
+</html>

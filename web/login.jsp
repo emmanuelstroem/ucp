@@ -20,7 +20,9 @@
     String DptPharmacy = Department;
     String pwd = password;
     Class.forName("com.mysql.jdbc.Driver");
-    Connection con = DriverManager.getConnection("jdbc:mysql://us-cdbr-iron-east-02.cleardb.net/heroku_c79a07203b819b6?reconnect=true", "b7895ee3eb8ef0", "b2e4df22");
+    
+    Connection con = DriverManager.getConnection("jdbc:mysql://localhost/cancer", "root","");
+    
     Statement st = con.createStatement();
     ResultSet rs,rs1,rs3;
     rs = st.executeQuery("select * from staffs where User_Name='" + username + "' and pass_Word='" + password + "'");

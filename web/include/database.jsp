@@ -5,7 +5,7 @@
 Connection con=DriverManager.getConnection("jdbc:odbc:rest","root","");*/
 
 Class.forName("com.mysql.jdbc.Driver");
-Connection con=DriverManager.getConnection("jdbc:mysql://localhost/resturant", "root","");
+Connection con=DriverManager.getConnection("jdbc:mysql://localhost/cancer", "root","");
 
 Statement stmt=con.createStatement();
 Statement stmt1=con.createStatement();
